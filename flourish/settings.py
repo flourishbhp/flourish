@@ -176,10 +176,10 @@ DATABASES = {
 }
 
 # DATABASES = {
-    # 'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
+# 'default': {
+# 'ENGINE': 'django.db.backends.sqlite3',
+# 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+# }
 # }
 
 ODK_SERVER_TYPE = 'central'
@@ -251,10 +251,6 @@ DASHBOARD_URL_NAMES = {
     'child_dashboard_url': 'flourish_dashboard:child_dashboard_url',
     'child_listboard_url': 'flourish_dashboard:child_listboard_url',
     'child_screening_listboard_url': 'flourish_dashboard:child_screening_listboard_url',
-    'pre_flourish_screening_listboard_url': 'pre_flourish:pre_flourish_screening_listboard_url',
-    'pre_flourish_consent_listboard_url': 'pre_flourish:pre_flourish_consent_listboard_url',
-    'pre_flourish_child_listboard_url': 'pre_flourish:pre_flourish_child_listboard_url',
-    'pre_flourish_subject_dashboard_url': 'pre_flourish:pre_flourish_subject_dashboard_url',
     'subject_listboard_url': 'flourish_dashboard:subject_listboard_url',
     'data_manager_listboard_url': 'edc_data_manager:data_manager_listboard_url',
     'maternal_screening_listboard_url': 'flourish_dashboard:maternal_screening_listboard_url',
@@ -268,14 +264,18 @@ DASHBOARD_URL_NAMES = {
     'odk_listboard_url': 'edc_odk:odk_listboard_url',
     'export_listboard_url': 'flourish_export:export_listboard_url',
     'flourish_calendar_url': 'flourish_calendar:calendar',
-    'pre_flourish_maternal_dataset_listboard_url': 'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
     # pre flourish urls
+    'pre_flourish_screening_listboard_url': 'pre_flourish:pre_flourish_screening_listboard_url',
+    'pre_flourish_consent_listboard_url': 'pre_flourish:pre_flourish_consent_listboard_url',
+    'pre_flourish_child_listboard_url': 'pre_flourish:pre_flourish_child_listboard_url',
+    'pre_flourish_subject_dashboard_url': 'pre_flourish:pre_flourish_subject_dashboard_url',
+    'pre_flourish_maternal_dataset_listboard_url': 'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
+    'pre_flourish_child_dashboard_url': 'pre_flourish:pre_flourish_child_dashboard_url',
     'pre_flourish_follow_listboard_url': 'pre_flourish_follow:pre_flourish_follow_listboard_url',
     'pre_flourish_follow_appt_listboard_url': 'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
     'pre_flourish_follow_booking_listboard_url': 'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
     'pre_flourish_follow_book_listboard_url': 'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
 }
-
 
 DASHBOARD_BASE_TEMPLATES = {
     'listboard_base_template': 'flourish/base.html',
@@ -294,6 +294,7 @@ DASHBOARD_BASE_TEMPLATES = {
     'flourish_follow_book_listboard_template': 'flourish_follow/book_listboard.html',
     'pre_flourish_child_listboard_template': 'pre_flourish/child/child_listboard.html',
     'pre_flourish_subject_dashboard_template': 'pre_flourish/caregiver/dashboard.html',
+    'pre_flourish_child_dashboard_template': 'pre_flourish/child/dashboard.html',
     'pre_flourish_screening_listboard_template': 'pre_flourish/caregiver/listboard.html',
     'pre_flourish_subject_listboard_template': 'pre_flourish/caregiver/subject_listboard.html',
     'child_screening_listboard_template': 'flourish_dashboard/child_subject/screening_listboard.html',
