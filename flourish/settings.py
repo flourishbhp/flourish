@@ -49,7 +49,8 @@ DEBUG = True
 # KEY_PATH = os.path.join(BASE_DIR, 'crypto_fields')
 # KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'flourish.bhp.org.bw', '10.113.201.239', '192.168.8.102']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'flourish.bhp.org.bw', '10.113.201.239',
+                 '192.168.8.102']
 
 CONFIG_FILE = f'{APP_NAME}.ini'
 
@@ -130,7 +131,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'edc_dashboard.middleware.DashboardMiddleware',
     'edc_subject_dashboard.middleware.DashboardMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'flourish.urls'
@@ -209,7 +210,8 @@ CELERY_INCLUDE = ['flourish_child.utils', 'edc_odk.tasks', ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+                '.UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -253,28 +255,41 @@ DASHBOARD_URL_NAMES = {
     'child_screening_listboard_url': 'flourish_dashboard:child_screening_listboard_url',
     'subject_listboard_url': 'flourish_dashboard:subject_listboard_url',
     'data_manager_listboard_url': 'edc_data_manager:data_manager_listboard_url',
-    'maternal_screening_listboard_url': 'flourish_dashboard:maternal_screening_listboard_url',
+    'maternal_screening_listboard_url':
+        'flourish_dashboard:maternal_screening_listboard_url',
     'maternal_dataset_listboard_url': 'flourish_dashboard:maternal_dataset_listboard_url',
-    'pre_flourish_caregiver_locator_listboard_url': 'pre_flourish:pre_flourish_caregiver_locator_listboard_url',
+    'pre_flourish_caregiver_locator_listboard_url':
+        'pre_flourish:pre_flourish_caregiver_locator_listboard_url',
     'flourish_follow_listboard_url': 'flourish_follow:flourish_follow_listboard_url',
-    'flourish_follow_appt_listboard_url': 'flourish_follow:flourish_follow_appt_listboard_url',
-    'flourish_follow_booking_listboard_url': 'flourish_follow:flourish_follow_booking_listboard_url',
-    'flourish_follow_book_listboard_url': 'flourish_follow:flourish_follow_book_listboard_url',
+    'flourish_follow_appt_listboard_url':
+        'flourish_follow:flourish_follow_appt_listboard_url',
+    'flourish_follow_booking_listboard_url':
+        'flourish_follow:flourish_follow_booking_listboard_url',
+    'flourish_follow_book_listboard_url':
+        'flourish_follow:flourish_follow_book_listboard_url',
     'subject_dashboard_url': 'flourish_dashboard:subject_dashboard_url',
     'odk_listboard_url': 'edc_odk:odk_listboard_url',
     'export_listboard_url': 'flourish_export:export_listboard_url',
     'flourish_calendar_url': 'flourish_calendar:calendar',
     # pre flourish urls
-    'pre_flourish_screening_listboard_url': 'pre_flourish:pre_flourish_screening_listboard_url',
-    'pre_flourish_consent_listboard_url': 'pre_flourish:pre_flourish_consent_listboard_url',
+    'pre_flourish_screening_listboard_url':
+        'pre_flourish:pre_flourish_screening_listboard_url',
+    'pre_flourish_consent_listboard_url':
+        'pre_flourish:pre_flourish_consent_listboard_url',
     'pre_flourish_child_listboard_url': 'pre_flourish:pre_flourish_child_listboard_url',
-    'pre_flourish_subject_dashboard_url': 'pre_flourish:pre_flourish_subject_dashboard_url',
-    'pre_flourish_maternal_dataset_listboard_url': 'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
+    'pre_flourish_subject_dashboard_url':
+        'pre_flourish:pre_flourish_subject_dashboard_url',
+    'pre_flourish_maternal_dataset_listboard_url':
+        'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
     'pre_flourish_child_dashboard_url': 'pre_flourish:pre_flourish_child_dashboard_url',
-    'pre_flourish_follow_listboard_url': 'pre_flourish_follow:pre_flourish_follow_listboard_url',
-    'pre_flourish_follow_appt_listboard_url': 'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
-    'pre_flourish_follow_booking_listboard_url': 'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
-    'pre_flourish_follow_book_listboard_url': 'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
+    'pre_flourish_follow_listboard_url':
+        'pre_flourish_follow:pre_flourish_follow_listboard_url',
+    'pre_flourish_follow_appt_listboard_url':
+        'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
+    'pre_flourish_follow_booking_listboard_url':
+        'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
+    'pre_flourish_follow_book_listboard_url':
+        'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -285,26 +300,36 @@ DASHBOARD_BASE_TEMPLATES = {
     'subject_listboard_template': 'flourish_dashboard/maternal_subject/listboard.html',
     'subject_dashboard_template': 'flourish_dashboard/maternal_subject/dashboard.html',
     'data_manager_listboard_template': 'edc_data_manager/listboard.html',
-    'maternal_screening_listboard_template': 'flourish_dashboard/screening/maternal_listboard.html',
-    'maternal_dataset_listboard_template': 'flourish_dashboard/maternal_dataset/maternal_listboard.html',
-    'pre_flourish_caragiver_locator_listboard_template': 'pre_flourish/caregiver_locator_listboard.html',
+    'maternal_screening_listboard_template':
+        'flourish_dashboard/screening/maternal_listboard.html',
+    'maternal_dataset_listboard_template':
+        'flourish_dashboard/maternal_dataset/maternal_listboard.html',
+    'pre_flourish_caragiver_locator_listboard_template':
+        'pre_flourish/caregiver_locator_listboard.html',
     'flourish_follow_listboard_template': 'flourish_follow/follow_listboard.html',
-    'flourish_follow_appt_listboard_template': 'flourish_follow/appointments_windows_listboards.html',
-    'flourish_follow_booking_listboard_template': 'flourish_follow/bookings_listboard.html',
+    'flourish_follow_appt_listboard_template':
+        'flourish_follow/appointments_windows_listboards.html',
+    'flourish_follow_booking_listboard_template':
+        'flourish_follow/bookings_listboard.html',
     'flourish_follow_book_listboard_template': 'flourish_follow/book_listboard.html',
     'pre_flourish_child_listboard_template': 'pre_flourish/child/child_listboard.html',
     'pre_flourish_subject_dashboard_template': 'pre_flourish/caregiver/dashboard.html',
     'pre_flourish_child_dashboard_template': 'pre_flourish/child/dashboard.html',
     'pre_flourish_screening_listboard_template': 'pre_flourish/caregiver/listboard.html',
-    'pre_flourish_subject_listboard_template': 'pre_flourish/caregiver/subject_listboard.html',
-    'child_screening_listboard_template': 'flourish_dashboard/child_subject/screening_listboard.html',
+    'pre_flourish_subject_listboard_template':
+        'pre_flourish/caregiver/subject_listboard.html',
+    'child_screening_listboard_template':
+        'flourish_dashboard/child_subject/screening_listboard.html',
     'odk_listboard_template': 'edc_odk/odk_forms/listboard.html',
     'export_listboard_template': 'flourish_export/listboard.html',
     # Preflourish_follow_templates
     'pre_flourish_follow_listboard_template': 'pre_flourish_follow/follow_listboard.html',
-    'pre_flourish_follow_appt_listboard_template': 'pre_flourish_follow/appointments_windows_listboards.html',
-    'pre_flourish_follow_booking_listboard_template': 'pre_flourish_follow/bookings_listboard.html',
-    'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
+    'pre_flourish_follow_appt_listboard_template':
+        'pre_flourish_follow/appointments_windows_listboards.html',
+    'pre_flourish_follow_booking_listboard_template':
+        'pre_flourish_follow/bookings_listboard.html',
+    'pre_flourish_follow_book_listboard_template':
+        'pre_flourish_follow/book_listboard.html',
 }
 
 # Static files (CSS, JavaScript, Images)
@@ -327,14 +352,27 @@ DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
-
 CACHEOPS = {
-    'flourish_caregiver.*': {'ops': 'all', 'timeout': 60*60*24},
-    'flourish_child.*': {'ops': 'all', 'timeout': 60*60*24},
-    'flourish_prn.*': {'ops': 'all', 'timeout': 60*60*24},
-    'flourish_follow.*': {'ops': 'all', 'timeout': 60*60*24},
-    'flourish_calendar.*': {'ops': 'all', 'timeout': 60*60*24},
+    'flourish_caregiver.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
+    'flourish_child.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
+    'flourish_prn.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
+    'flourish_follow.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
+    'flourish_calendar.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
     'flourish_child.models.child_appointment.Appointment': None,
     'edc_appointments.*': None,
-    '*.*': {'timeout': 60*60},
+    '*.*': {'timeout': 60 * 60},
 }
+
+if 'test' in sys.argv:
+    class DisableMigrations:
+
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return None
+
+
+    MIGRATION_MODULES = DisableMigrations()
+    PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
+    DEFAULT_FILE_STORAGE = 'inmemorystorage.InMemoryStorage'
