@@ -131,7 +131,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'edc_dashboard.middleware.DashboardMiddleware',
     'edc_subject_dashboard.middleware.DashboardMiddleware',
-
+    
 ]
 
 ROOT_URLCONF = 'flourish.urls'
@@ -187,6 +187,12 @@ ODK_SERVER_TYPE = 'central'
 ODK_CONFIGURATION = {
     'OPTIONS': {
         'read_default_file': '/etc/odk/odk.cnf',
+    },
+}
+
+SENAITE_CONFIGURATION = {
+    'OPTIONS': {
+        'read_default_file': '/etc/edc_senaite_interface/senaite.conf',
     },
 }
 
@@ -255,41 +261,28 @@ DASHBOARD_URL_NAMES = {
     'child_screening_listboard_url': 'flourish_dashboard:child_screening_listboard_url',
     'subject_listboard_url': 'flourish_dashboard:subject_listboard_url',
     'data_manager_listboard_url': 'edc_data_manager:data_manager_listboard_url',
-    'maternal_screening_listboard_url':
-        'flourish_dashboard:maternal_screening_listboard_url',
+    'maternal_screening_listboard_url': 'flourish_dashboard:maternal_screening_listboard_url',
     'maternal_dataset_listboard_url': 'flourish_dashboard:maternal_dataset_listboard_url',
-    'pre_flourish_caregiver_locator_listboard_url':
-        'pre_flourish:pre_flourish_caregiver_locator_listboard_url',
+    'pre_flourish_caregiver_locator_listboard_url': 'pre_flourish:pre_flourish_caregiver_locator_listboard_url',
     'flourish_follow_listboard_url': 'flourish_follow:flourish_follow_listboard_url',
-    'flourish_follow_appt_listboard_url':
-        'flourish_follow:flourish_follow_appt_listboard_url',
-    'flourish_follow_booking_listboard_url':
-        'flourish_follow:flourish_follow_booking_listboard_url',
-    'flourish_follow_book_listboard_url':
-        'flourish_follow:flourish_follow_book_listboard_url',
+    'flourish_follow_appt_listboard_url': 'flourish_follow:flourish_follow_appt_listboard_url',
+    'flourish_follow_booking_listboard_url': 'flourish_follow:flourish_follow_booking_listboard_url',
+    'flourish_follow_book_listboard_url': 'flourish_follow:flourish_follow_book_listboard_url',
     'subject_dashboard_url': 'flourish_dashboard:subject_dashboard_url',
     'odk_listboard_url': 'edc_odk:odk_listboard_url',
     'export_listboard_url': 'flourish_export:export_listboard_url',
     'flourish_calendar_url': 'flourish_calendar:calendar',
     # pre flourish urls
-    'pre_flourish_screening_listboard_url':
-        'pre_flourish:pre_flourish_screening_listboard_url',
-    'pre_flourish_consent_listboard_url':
-        'pre_flourish:pre_flourish_consent_listboard_url',
+    'pre_flourish_screening_listboard_url': 'pre_flourish:pre_flourish_screening_listboard_url',
+    'pre_flourish_consent_listboard_url': 'pre_flourish:pre_flourish_consent_listboard_url',
     'pre_flourish_child_listboard_url': 'pre_flourish:pre_flourish_child_listboard_url',
-    'pre_flourish_subject_dashboard_url':
-        'pre_flourish:pre_flourish_subject_dashboard_url',
-    'pre_flourish_maternal_dataset_listboard_url':
-        'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
+    'pre_flourish_subject_dashboard_url': 'pre_flourish:pre_flourish_subject_dashboard_url',
+    'pre_flourish_maternal_dataset_listboard_url': 'pre_flourish:pre_flourish_maternal_dataset_listboard_url',
     'pre_flourish_child_dashboard_url': 'pre_flourish:pre_flourish_child_dashboard_url',
-    'pre_flourish_follow_listboard_url':
-        'pre_flourish_follow:pre_flourish_follow_listboard_url',
-    'pre_flourish_follow_appt_listboard_url':
-        'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
-    'pre_flourish_follow_booking_listboard_url':
-        'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
-    'pre_flourish_follow_book_listboard_url':
-        'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
+    'pre_flourish_follow_listboard_url': 'pre_flourish_follow:pre_flourish_follow_listboard_url',
+    'pre_flourish_follow_appt_listboard_url': 'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
+    'pre_flourish_follow_booking_listboard_url': 'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
+    'pre_flourish_follow_book_listboard_url': 'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -324,12 +317,9 @@ DASHBOARD_BASE_TEMPLATES = {
     'export_listboard_template': 'flourish_export/listboard.html',
     # Preflourish_follow_templates
     'pre_flourish_follow_listboard_template': 'pre_flourish_follow/follow_listboard.html',
-    'pre_flourish_follow_appt_listboard_template':
-        'pre_flourish_follow/appointments_windows_listboards.html',
-    'pre_flourish_follow_booking_listboard_template':
-        'pre_flourish_follow/bookings_listboard.html',
-    'pre_flourish_follow_book_listboard_template':
-        'pre_flourish_follow/book_listboard.html',
+    'pre_flourish_follow_appt_listboard_template': 'pre_flourish_follow/appointments_windows_listboards.html',
+    'pre_flourish_follow_booking_listboard_template': 'pre_flourish_follow/bookings_listboard.html',
+    'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
 }
 
 # Static files (CSS, JavaScript, Images)
@@ -352,15 +342,16 @@ DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
+
 CACHEOPS = {
-    'flourish_caregiver.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
-    'flourish_child.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
-    'flourish_prn.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
-    'flourish_follow.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
-    'flourish_calendar.*': {'ops': 'all', 'timeout': 60 * 60 * 24},
+    'flourish_caregiver.*': {'ops': 'all', 'timeout': 60*60*24},
+    'flourish_child.*': {'ops': 'all', 'timeout': 60*60*24},
+    'flourish_prn.*': {'ops': 'all', 'timeout': 60*60*24},
+    'flourish_follow.*': {'ops': 'all', 'timeout': 60*60*24},
+    'flourish_calendar.*': {'ops': 'all', 'timeout': 60*60*24},
     'flourish_child.models.child_appointment.Appointment': None,
     'edc_appointments.*': None,
-    '*.*': {'timeout': 60 * 60},
+    '*.*': {'timeout': 60*60},
 }
 
 if 'test' in sys.argv:

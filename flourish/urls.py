@@ -26,6 +26,7 @@ from edc_locator.admin_site import edc_locator_admin
 from edc_metadata.admin_site import edc_metadata_admin
 from edc_reference.admin_site import edc_reference_admin
 from edc_registration.admin_site import edc_registration_admin
+from edc_senaite_interface.admin_site import edc_senaite_interface_admin
 from flourish_caregiver.admin_site import flourish_caregiver_admin
 from flourish_reports.admin_site import flourish_reports_admin
 from edc_visit_schedule.admin_site import edc_visit_schedule_admin
@@ -58,6 +59,7 @@ urlpatterns = [
     path('admin/', edc_metadata_admin.urls),
     path('admin/', edc_registration_admin.urls),
     path('admin/', edc_reference_admin.urls),
+    path('admin/', edc_senaite_interface_admin.urls),
     path('admin/', edc_odk_admin.urls),
     path('admin/', flourish_export_admin.urls),
     path('admin/', flourish_caregiver_admin.urls),
@@ -94,12 +96,13 @@ urlpatterns = [
     path('edc_reference/', include('edc_reference.urls')),
     path('edc_subject_dashboard/', include('edc_subject_dashboard.urls')),
     path('edc_visit_schedule/', include('edc_visit_schedule.urls')),
+    path('edc_senaite_interface/', include('edc_senaite_interface.urls')),
     path('subject/', include('flourish_dashboard.urls')),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', HomeView.as_view(), name='home_url'),
     path('edc_da_api/', include('edc_document_archieve.urls')),
     path('calendar/', include('flourish_calendar.urls')),
-    path("admin/", flourish_calendar_admin.urls),
+    path('admin/', flourish_calendar_admin.urls),
 
 ]
 
