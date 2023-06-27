@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_crypto_fields.apps.AppConfig',
     'django_q',
+    'django_tables2',
     'django_extensions',
     'crispy_forms',
     'multiselectfield',
