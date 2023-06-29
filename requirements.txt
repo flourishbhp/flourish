@@ -54,3 +54,4 @@ git+https://github.com/flourishbhp/flourish-labs@develop#egg=flourish_labs
 git+https://github.com/flourishbhp/flourish-calendar@develop#egg=flourish_calendar
 git+https://github.com/flourishbhp/pre-flourish-follow.git@develop#egg=pre_flourish_follow
 pypdfium2==3.8.0
+django_tables2
