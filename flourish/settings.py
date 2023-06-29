@@ -49,8 +49,7 @@ DEBUG = True
 # KEY_PATH = os.path.join(BASE_DIR, 'crypto_fields')
 # KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'flourish.bhp.org.bw', '10.113.201.239',
-                 '192.168.8.102']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'flourish.bhp.org.bw', '10.113.201.239', '192.168.8.102']
 
 CONFIG_FILE = f'{APP_NAME}.ini'
 
@@ -217,8 +216,7 @@ CELERY_INCLUDE = ['flourish_child.utils', 'edc_odk.tasks', ]
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation'
-                '.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
@@ -284,6 +282,11 @@ DASHBOARD_URL_NAMES = {
     'pre_flourish_follow_appt_listboard_url': 'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
     'pre_flourish_follow_booking_listboard_url': 'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
     'pre_flourish_follow_book_listboard_url': 'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
+    # Senaite Interface URLs
+    # Use caregiver result listboard as default/entry listboard.
+    'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
+    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
+     'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -294,26 +297,19 @@ DASHBOARD_BASE_TEMPLATES = {
     'subject_listboard_template': 'flourish_dashboard/maternal_subject/listboard.html',
     'subject_dashboard_template': 'flourish_dashboard/maternal_subject/dashboard.html',
     'data_manager_listboard_template': 'edc_data_manager/listboard.html',
-    'maternal_screening_listboard_template':
-        'flourish_dashboard/screening/maternal_listboard.html',
-    'maternal_dataset_listboard_template':
-        'flourish_dashboard/maternal_dataset/maternal_listboard.html',
-    'pre_flourish_caragiver_locator_listboard_template':
-        'pre_flourish/caregiver_locator_listboard.html',
+    'maternal_screening_listboard_template': 'flourish_dashboard/screening/maternal_listboard.html',
+    'maternal_dataset_listboard_template': 'flourish_dashboard/maternal_dataset/maternal_listboard.html',
+    'pre_flourish_caragiver_locator_listboard_template': 'pre_flourish/caregiver_locator_listboard.html',
     'flourish_follow_listboard_template': 'flourish_follow/follow_listboard.html',
-    'flourish_follow_appt_listboard_template':
-        'flourish_follow/appointments_windows_listboards.html',
-    'flourish_follow_booking_listboard_template':
-        'flourish_follow/bookings_listboard.html',
+    'flourish_follow_appt_listboard_template': 'flourish_follow/appointments_windows_listboards.html',
+    'flourish_follow_booking_listboard_template': 'flourish_follow/bookings_listboard.html',
     'flourish_follow_book_listboard_template': 'flourish_follow/book_listboard.html',
     'pre_flourish_child_listboard_template': 'pre_flourish/child/child_listboard.html',
     'pre_flourish_subject_dashboard_template': 'pre_flourish/caregiver/dashboard.html',
     'pre_flourish_child_dashboard_template': 'pre_flourish/child/dashboard.html',
     'pre_flourish_screening_listboard_template': 'pre_flourish/caregiver/listboard.html',
-    'pre_flourish_subject_listboard_template':
-        'pre_flourish/caregiver/subject_listboard.html',
-    'child_screening_listboard_template':
-        'flourish_dashboard/child_subject/screening_listboard.html',
+    'pre_flourish_subject_listboard_template': 'pre_flourish/caregiver/subject_listboard.html',
+    'child_screening_listboard_template': 'flourish_dashboard/child_subject/screening_listboard.html',
     'odk_listboard_template': 'edc_odk/odk_forms/listboard.html',
     'export_listboard_template': 'flourish_export/listboard.html',
     # Preflourish_follow_templates
@@ -321,6 +317,9 @@ DASHBOARD_BASE_TEMPLATES = {
     'pre_flourish_follow_appt_listboard_template': 'pre_flourish_follow/appointments_windows_listboards.html',
     'pre_flourish_follow_booking_listboard_template': 'pre_flourish_follow/bookings_listboard.html',
     'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
+    # Override senaite result template
+    'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
+    'missing_crf_report_template': 'flourish_reports/missing_crfs/missing_crf_report.html',
 }
 
 # Static files (CSS, JavaScript, Images)
