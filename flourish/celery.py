@@ -4,7 +4,6 @@ import os
 
 from celery import Celery
 from celery.schedules import crontab
-from .tasks import run_sequential_enrollment
 
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'flourish.settings')
@@ -31,10 +30,5 @@ app.conf.beat_schedule = {
     "schedule-load-previous-study-data": {
         "task": "flourish_reports.tasks.populate_study_data",
         "schedule": crontab(hour='5,13', minute=0, day_of_week='mon-fri')
-    },
-    "schedule-run-sequential-enrollment": {
-        "task": "flourish.tasks.run_sequential_enrollment",
-        "schedule": crontab(hour=19, minute=0, day_of_week='mon-fri') 
-    },
-
+    }
 }
