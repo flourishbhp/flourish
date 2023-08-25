@@ -119,6 +119,9 @@ class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
             'child_visit', 'flourish_child.childvisit'),
         'pre_flourish': (
             'pre_flourish_visit', 'pre_flourish.preflourishvisit'),
+
+        'flourish_facet': (
+            'facet_visit', 'flourish_facet.facetvisit'),
     }
 
 
@@ -141,9 +144,9 @@ class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
 
 
 class EdcOdkAppConfig(BaseEdcOdkAppConfig):
-    adult_child_study=False
-    adult_consent_model='flourish_caregiver.subjectconsent'
-    child_assent_model='flourish_child.childassent'
+    adult_child_study = False
+    adult_consent_model = 'flourish_caregiver.subjectconsent'
+    child_assent_model = 'flourish_child.childassent'
     clinician_notes_form_ids = {
         'flourish_child': 'child_cliniciannotes_v1.0',
         'flourish_caregiver': 'caregiver_cliniciannotes_v1.0'}

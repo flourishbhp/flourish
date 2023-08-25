@@ -114,6 +114,7 @@ INSTALLED_APPS = [
     'pre_flourish.apps.AppConfig',
     'flourish_calendar.apps.AppConfig',
     'flourish.apps.AppConfig',
+    'flourish_facet.apps.AppConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'cacheops',
@@ -275,6 +276,9 @@ DASHBOARD_URL_NAMES = {
     'pre_flourish_follow_appt_listboard_url': 'pre_flourish_follow:pre_flourish_follow_appt_listboard_url',
     'pre_flourish_follow_booking_listboard_url': 'pre_flourish_follow:pre_flourish_follow_booking_listboard_url',
     'pre_flourish_follow_book_listboard_url': 'pre_flourish_follow:pre_flourish_follow_book_listboard_url',
+    'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
+    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
+    'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -305,6 +309,8 @@ DASHBOARD_BASE_TEMPLATES = {
     'pre_flourish_follow_appt_listboard_template': 'pre_flourish_follow/appointments_windows_listboards.html',
     'pre_flourish_follow_booking_listboard_template': 'pre_flourish_follow/bookings_listboard.html',
     'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
+    'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
+    'missing_crf_report_template': 'flourish_reports/missing_crfs/missing_crf_report.html',
 }
 
 # Static files (CSS, JavaScript, Images)

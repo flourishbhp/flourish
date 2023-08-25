@@ -40,6 +40,7 @@ from flourish_follow.admin_site import flourish_follow_admin
 from pre_flourish_follow.admin_site import pre_flourish_follow_admin
 from flourish_prn.admin_site import flourish_prn_admin
 from flourish_export.admin_site import flourish_export_admin
+from flourish_facet.admin_site import flourish_facet_admin
 from .views import HomeView, AdministrationView
 
 app_name = 'flourish_follow'
@@ -66,6 +67,7 @@ urlpatterns = [
     path('admin/', flourish_reports_admin.urls),
     path('admin/', flourish_prn_admin.urls),
     path('admin/', pre_flourish_admin.urls),
+    path('admin/', flourish_facet_admin.urls),
     path('admin/edc_visit_schedule/', edc_visit_schedule_admin.urls),
     path('admin/edc_call_manager/', edc_call_manager_admin.urls),
     path('admin/', flourish_child_admin.urls),
