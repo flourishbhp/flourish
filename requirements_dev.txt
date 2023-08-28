@@ -1,14 +1,64 @@
--e /Users/coulsonkgathi/source/flourish-caregiver
--e /Users/coulsonkgathi/source/flourish-dashboard
--e /Users/coulsonkgathi/source/flourish-child
--e /Users/coulsonkgathi/source/flourish-follow
--e /Users/coulsonkgathi/source/flourish-visit-schedule
--e /Users/coulsonkgathi/source/flourish-reference 
--e /Users/coulsonkgathi/source/flourish-prn
--e /Users/coulsonkgathi/source/flourish-metadata-rules
--e /Users/coulsonkgathi/source/flourish-child-validations
--e /Users/coulsonkgathi/source/flourish-form-validations
--e /Users/coulsonkgathi/source/pre-flourish
--e /Users/coulsonkgathi/source/flourish-reports
--e /Users/coulsonkgathi/source/flourish-labs
--e /Users/coulsonkgathi/source/flourish-calendar
+git+https://github.com/botswana-harvard/django-crypto-fields.git@develop4#egg=django-crypto-fields
+git+https://github.com/botswana-harvard/django-revision.git@develop#egg=django-revision
+git+https://github.com/botswana-harvard/edc-action-item.git@develop#egg=edc-action-item
+git+https://github.com/botswana-harvard/edc-appointment.git@develop#egg=edc-appointment
+git+https://github.com/botswana-harvard/edc-base.git@develop#egg=edc-base
+git+https://github.com/botswana-harvard/edc-call-manager.git@develop#egg=edc-call-manager
+git+https://github.com/botswana-harvard/edc-calendar.git@develop#egg=edc-calendar
+git+https://github.com/botswana-harvard/edc-constants.git@develop#egg=edc-constants
+git+https://github.com/botswana-harvard/edc-consent.git@develop#egg=edc-consent
+git+https://github.com/botswana-harvard/edc-dashboard.git@develop#egg=edc-dashboard
+git+https://github.com/botswana-harvard/edc-data-manager.git@develop#egg=edc-data-manager
+git+https://github.com/botswana-harvard/edc-device.git@develop#egg=edc-device
+git+https://github.com/botswana-harvard/edc-document-archieve-api.git@develop
+git+https://github.com/botswana-harvard/edc-facility.git@develop#egg=edc-facility
+git+https://github.com/botswana-harvard/edc-fieldsets.git@develop#egg=edc-fieldsets
+git+https://github.com/botswana-harvard/edc-form-validators.git@develop#egg=edc-form-validators
+git+https://github.com/botswana-harvard/edc-identifier.git@develop#egg=edc-identifier
+git+https://github.com/botswana-harvard/edc-lab.git@develop#egg=edc-lab
+git+https://github.com/botswana-harvard/edc-label.git@develop#egg=edc-label
+git+https://github.com/botswana-harvard/edc-locator.git@develop#egg=edc-locator
+git+https://github.com/botswana-harvard/edc-list-data.git@develop#egg=edc-list-data
+git+https://github.com/botswana-harvard/edc-metadata.git@develop#egg=edc-metadata
+git+https://github.com/botswana-harvard/edc-metadata-rules.git@develop#egg=edc-metadata-rules
+git+https://github.com/botswana-harvard/edc-model-admin.git@develop#egg=edc-model-admin
+git+https://github.com/botswana-harvard/edc-model-wrapper.git@develop#egg=edc-model-wrapper
+git+https://github.com/botswana-harvard/edc-navbar.git@develop#egg=edc-navbar
+git+https://github.com/botswana-harvard/edc-odk.git@develop#egg=edc-odk
+git+https://github.com/botswana-harvard/edc-prn.git@develop#egg=edc-prn
+git+https://github.com/botswana-harvard/edc-protocol.git@develop#egg=edc-protocol
+git+https://github.com/botswana-harvard/edc-reference.git@develop#egg=edc-reference
+git+https://github.com/botswana-harvard/edc-registration.git@develop#egg=edc-registration
+git+https://github.com/botswana-harvard/edc-reports.git@develop#egg=edc-reports
+git+https://github.com/botswana-harvard/edc-search.git@develop#egg=edc-search
+git+https://github.com/botswana-harvard/edc-sms.git@develop#egg=edc-sms
+git+https://github.com/botswana-harvard/edc-subject-dashboard.git@develop#egg=edc-subject-dashboard
+git+https://github.com/botswana-harvard/edc-timepoint.git@develop#egg=edc-timepoint
+git+https://github.com/botswana-harvard/edc-visit-schedule.git@develop#egg=edc-visit-schedule
+git+https://github.com/botswana-harvard/edc-visit-tracking.git@develop#egg=edc-visit-tracking
+git+https://github.com/flourishbhp/flourish-child.git@develop#egg=flourish-child
+git+https://github.com/flourishbhp/flourish-child-validations.git@develop#egg=flourish-child-validations
+git+https://github.com/flourishbhp/flourish-caregiver.git@develop#egg=flourish-caregiver
+git+https://github.com/flourishbhp/flourish-dashboard.git@develop#egg=flourish-dashboard
+git+https://github.com/flourishbhp/flourish-visit-schedule.git@develop#egg=flourish-visit-schedule
+git+https://github.com/flourishbhp/flourish-follow.git@develop#egg=flourish-follow
+git+https://github.com/flourishbhp/flourish-reports.git@develop#egg=flourish-reports
+git+https://github.com/flourishbhp/flourish-form-validations.git@develop#egg=flourish-form-validations
+git+https://github.com/flourishbhp/flourish-prn.git@develop#egg=flourish-prn
+git+https://github.com/flourishbhp/flourish-export.git@develop#egg=flourish-export
+git+https://github.com/flourishbhp/flourish-reference@develop#egg=flourish-reference
+git+https://github.com/flourishbhp/flourish-metadata-rules@develop#egg=flourish-metadata-rules
+git+https://github.com/flourishbhp/flourish-labs@develop#egg=flourish-labs
+git+https://github.com/flourishbhp/flourish-calendar@develop#egg=flourish-calendar
+git+https://github.com/flourishbhp/pre-flourish.git@develop#egg=pre-flourish
+git+https://github.com/flourishbhp/pre-flourish-follow.git@develop#egg=pre-flourish-follow
+
+django_q
+xlwt
+django-crispy-forms
+django-multiselectfield
+notebook
+pandas
+djangorestframework
+matplotlib
+flexitext
