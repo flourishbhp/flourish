@@ -279,6 +279,11 @@ DASHBOARD_URL_NAMES = {
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
     'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
     'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
+    # flourish_facet_urls
+    'facet_mother_listboard_url': 'flourish_facet:facet_mother_listboard_url',
+    'facet_child_listboard_url': 'flourish_facet:facet_child_listboard_url',
+    'facet_mother_dashboard_url':  'flourish_facet:facet_mother_dashboard_url',
+    'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -311,6 +316,11 @@ DASHBOARD_BASE_TEMPLATES = {
     'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
     'missing_crf_report_template': 'flourish_reports/missing_crfs/missing_crf_report.html',
+    # flourish facet templates
+    'facet_mother_listboard_template': 'flourish_facet/mother/flourish_facet_listboard.html',
+    'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
+    'facet_mother_dashboard_template': 'flourish_facet/mother/flourish_facet_dashboard.html',
+    'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
 }
 
 # Static files (CSS, JavaScript, Images)
