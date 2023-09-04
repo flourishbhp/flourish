@@ -284,6 +284,7 @@ DASHBOARD_URL_NAMES = {
     'facet_child_listboard_url': 'flourish_facet:facet_child_listboard_url',
     'facet_mother_dashboard_url':  'flourish_facet:facet_mother_dashboard_url',
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
+    'facet_flourish_consent_listboard_url': 'flourish_facet:facet_flourish_consent_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -320,7 +321,8 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_mother_listboard_template': 'flourish_facet/mother/flourish_facet_listboard.html',
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     'facet_mother_dashboard_template': 'flourish_facet/mother/flourish_facet_dashboard.html',
-    'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
+    'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_dashboard.html',
+    'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html'
 }
 
 # Static files (CSS, JavaScript, Images)
