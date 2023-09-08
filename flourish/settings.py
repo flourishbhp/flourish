@@ -190,6 +190,12 @@ ODK_CONFIGURATION = {
     },
 }
 
+SENAITE_CONFIGURATION = {
+    'OPTIONS': {
+        'read_default_file': '/etc/edc_senaite_interface/senaite.conf',
+    },
+}
+
 # Email configurations
 EMAIL_BACKEND = config['email_conf'].get('email_backend')
 EMAIL_HOST = config['email_conf'].get('email_host')
@@ -284,6 +290,10 @@ DASHBOARD_URL_NAMES = {
     'facet_child_listboard_url': 'flourish_facet:facet_child_listboard_url',
     'facet_mother_dashboard_url':  'flourish_facet:facet_mother_dashboard_url',
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
+    # Senaite Interface URLs
+    # Use caregiver result listboard as default/entry listboard.
+    'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
+    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url'
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -321,6 +331,8 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     'facet_mother_dashboard_template': 'flourish_facet/mother/flourish_facet_dashboard.html',
     'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
+    # Override senaite result template
+    'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
 }
 
 # Static files (CSS, JavaScript, Images)
