@@ -285,8 +285,7 @@ DASHBOARD_URL_NAMES = {
     # Senaite Interface URLs
     # Use caregiver result listboard as default/entry listboard.
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
-    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
-     'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
+    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url'
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -319,7 +318,6 @@ DASHBOARD_BASE_TEMPLATES = {
     'pre_flourish_follow_book_listboard_template': 'pre_flourish_follow/book_listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
-    'missing_crf_report_template': 'flourish_reports/missing_crfs/missing_crf_report.html',
 }
 
 # Static files (CSS, JavaScript, Images)
