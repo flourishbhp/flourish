@@ -52,7 +52,6 @@ git+https://github.com/flourishbhp/flourish-labs@develop#egg=flourish-labs
 git+https://github.com/flourishbhp/flourish-calendar@develop#egg=flourish-calendar
 git+https://github.com/flourishbhp/pre-flourish.git@develop#egg=pre-flourish
 git+https://github.com/flourishbhp/pre-flourish-follow.git@develop#egg=pre-flourish-follow
-
 django_q
 xlwt
 django-crispy-forms
