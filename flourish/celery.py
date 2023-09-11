@@ -30,5 +30,13 @@ app.conf.beat_schedule = {
     "schedule-load-previous-study-data": {
         "task": "flourish_reports.tasks.populate_study_data",
         "schedule": crontab(hour='5,13', minute=0, day_of_week='mon-fri')
-    }
+    },
+    "schedule-populate-heu-huu-pool-data": {
+        "task": "pre_flourish.helper_classes.utils.populate_heu_huu_pool_data",
+        "schedule": crontab(hour=11, minute=30, day_of_week='mon-fri')
+    },
+    "schedule-run-sequential-enrollment": {
+        "task": "flourish.tasks.run_sequential_enrollment",
+        "schedule": crontab(hour=19, minute=0, day_of_week='mon-fri') 
+    },
 }
