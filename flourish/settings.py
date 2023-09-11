@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_crypto_fields.apps.AppConfig',
     'django_q',
+    'django_tables2',
     'django_extensions',
     'crispy_forms',
     'multiselectfield',
@@ -350,3 +351,17 @@ CACHEOPS = {
     'edc_appointments.*': None,
     '*.*': {'timeout': 60*60},
 }
+
+if 'test' in sys.argv:
+    class DisableMigrations:
+
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return None
+
+
+    MIGRATION_MODULES = DisableMigrations()
+    PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
+    DEFAULT_FILE_STORAGE = 'inmemorystorage.InMemoryStorage'
