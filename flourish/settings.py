@@ -333,7 +333,7 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_mother_dashboard_template': 'flourish_facet/mother/flourish_facet_dashboard.html',
     'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_dashboard.html',
     'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html',
-    'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
+    'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
 }
