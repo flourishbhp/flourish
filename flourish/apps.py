@@ -128,10 +128,8 @@ class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
             'child_visit', 'flourish_child.childvisit'),
         'pre_flourish': (
             'pre_flourish_visit', 'pre_flourish.preflourishvisit'),
-
         'flourish_facet': (
             'facet_visit', 'flourish_facet.facetvisit'),
-            'maternal_visit', 'pre_flourish.preflourishcaregivervisit'),
 
     }
 
@@ -149,8 +147,8 @@ class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
     reason_field = {
         'pre_flourish.preflourishcaregivervisit': 'reason',
         'flourish_caregiver.maternalvisit': 'reason',
-        'flourish_child.childvisit': 'reason', 
-        'flourish_facet.facetvisit': 'reason',}
+        'flourish_child.childvisit': 'reason',
+        'flourish_facet.facetvisit': 'reason', }
     create_on_reasons = [SCHEDULED, UNSCHEDULED, COMPLETED_PROTOCOL_VISIT]
     delete_on_reasons = [LOST_VISIT, MISSED_VISIT, FAILED_ELIGIBILITY]
 
