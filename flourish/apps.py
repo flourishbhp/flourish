@@ -36,8 +36,8 @@ class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
             related_visit_model='flourish_caregiver.maternalvisit',
             appt_type='clinic'),
         AppointmentConfig(
-            model='pre_flourish.appointment',
-            related_visit_model='pre_flourish.preflourishvisit',
+            model='edc_appointment.appointment',
+            related_visit_model='pre_flourish.preflourishcaregivervisit',
             appt_type='clinic'),
         AppointmentConfig(
             model='flourish_child.appointment',
@@ -131,6 +131,8 @@ class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
 
         'flourish_facet': (
             'facet_visit', 'flourish_facet.facetvisit'),
+            'maternal_visit', 'pre_flourish.preflourishcaregivervisit'),
+
     }
 
 
@@ -145,7 +147,7 @@ class EdcFacilityAppConfig(BaseEdcFacilityAppConfig):
 
 class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
     reason_field = {
-        'pre_flourish.preflourishvisit': 'reason',
+        'pre_flourish.preflourishcaregivervisit': 'reason',
         'flourish_caregiver.maternalvisit': 'reason',
         'flourish_child.childvisit': 'reason', 
         'flourish_facet.facetvisit': 'reason',}
@@ -170,6 +172,10 @@ class EdcSenaiteInterfaceAppConfig(BaseEdcSenaiteInterfaceAppConfig):
     host = "https://bhplims.bhp.org.bw"
     client = "Flourish"
     courier = ""
+    result_models = {'flourish_caregiver':
+                     ['caregiverrequisitionresult', 'caregiverresultvalue'],
+                     'flourish_child':
+                     ['childrequisitionresult', 'childresultvalue']}
     sample_type_match = {'viral_load': 'Whole Blood EDTA',
                          'cd4': 'Whole Blood EDTA',
                          'hematology': 'Whole Blood EDTA',
