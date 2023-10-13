@@ -13,7 +13,7 @@ from edc_protocol.apps import AppConfig as BaseEdcProtocolAppConfig
 from edc_timepoint.apps import AppConfig as BaseEdcTimepointAppConfig
 from edc_timepoint.timepoint import Timepoint
 from edc_timepoint.timepoint_collection import TimepointCollection
-
+from edc_visit_schedule import SubjectSchedule
 from edc_appointment.appointment_config import AppointmentConfig
 from edc_appointment.apps import AppConfig as BaseEdcAppointmentAppConfig
 from edc_appointment.constants import COMPLETE_APPT
@@ -42,7 +42,11 @@ class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
         AppointmentConfig(
             model='flourish_child.appointment',
             related_visit_model='flourish_child.childvisit',
-            appt_type='clinic')
+            appt_type='clinic'),
+        AppointmentConfig(
+            model='flourish_facet.appointment',
+            related_visit_model='flourish_facet.facetvisit',
+            appt_type='clinic'),
     ]
 
 
@@ -89,6 +93,16 @@ class EdcTimepointAppConfig(BaseEdcTimepointAppConfig):
                 status_field='appt_status',
                 closed_status=COMPLETE_APPT),
             Timepoint(
+                model='pre_flourish.appointment',
+                datetime_field='appt_datetime',
+                status_field='appt_status',
+                closed_status=COMPLETE_APPT),
+            Timepoint(
+                model='flourish_facet.appointment',
+                datetime_field='appt_datetime',
+                status_field='appt_status',
+                closed_status=COMPLETE_APPT),
+            Timepoint(
                 model='flourish_child.appointment',
                 datetime_field='appt_datetime',
                 status_field='appt_status',
@@ -119,6 +133,9 @@ class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
             'child_visit', 'flourish_child.childvisit'),
         'pre_flourish': (
             'pre_flourish_visit', 'pre_flourish.preflourishvisit'),
+        'flourish_facet': (
+            'facet_visit', 'flourish_facet.facetvisit'),
+
     }
 
 
@@ -135,7 +152,8 @@ class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
     reason_field = {
         'pre_flourish.preflourishvisit': 'reason',
         'flourish_caregiver.maternalvisit': 'reason',
-        'flourish_child.childvisit': 'reason', }
+        'flourish_child.childvisit': 'reason',
+        'flourish_facet.facetvisit': 'reason', }
     create_on_reasons = [SCHEDULED, UNSCHEDULED, COMPLETED_PROTOCOL_VISIT]
     delete_on_reasons = [LOST_VISIT, MISSED_VISIT, FAILED_ELIGIBILITY]
 
