@@ -112,11 +112,6 @@ class EdcTimepointAppConfig(BaseEdcTimepointAppConfig):
                 datetime_field='appt_datetime',
                 status_field='appt_status',
                 closed_status=COMPLETE_APPT),
-            Timepoint(
-                    model='pre_flourish.appointment',
-                    datetime_field='appt_datetime',
-                    status_field='appt_status',
-                    closed_status=COMPLETE_APPT),
         ])
 
 
