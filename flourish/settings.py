@@ -49,7 +49,8 @@ DEBUG = True
 # KEY_PATH = os.path.join(BASE_DIR, 'crypto_fields')
 # KEY_PATH = os.path.join(ETC_DIR, 'crypto_fields')
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'flourish.bhp.org.bw', '10.113.201.239', '192.168.8.102']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+                 'flourish.bhp.org.bw', '10.113.201.239', '192.168.8.102']
 
 CONFIG_FILE = f'{APP_NAME}.ini'
 
@@ -133,7 +134,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'edc_dashboard.middleware.DashboardMiddleware',
     'edc_subject_dashboard.middleware.DashboardMiddleware',
-    
+
 ]
 
 ROOT_URLCONF = 'flourish.urls'
@@ -291,6 +292,7 @@ DASHBOARD_URL_NAMES = {
     'facet_mother_dashboard_url':  'flourish_facet:facet_mother_dashboard_url',
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
     'facet_flourish_consent_listboard_url': 'flourish_facet:facet_flourish_consent_listboard_url',
+    'group_interview_listboard_url': 'flourish_facet:group_interview_listboard_url',
     # Senaite Interface URLs
     # Use caregiver result listboard as default/entry listboard.
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
@@ -332,6 +334,7 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_child_dashboard_template': 'flourish_facet/child/flourish_facet_dashboard.html',
     'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html',
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
+    'group_interview_listboard_template': 'flourish_facet/interview/listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
 }
@@ -376,7 +379,6 @@ if 'test' in sys.argv:
 
         def __getitem__(self, item):
             return None
-
 
     MIGRATION_MODULES = DisableMigrations()
     PASSWORD_HASHERS = ('django.contrib.auth.hashers.MD5PasswordHasher',)
