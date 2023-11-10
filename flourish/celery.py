@@ -37,6 +37,10 @@ app.conf.beat_schedule = {
     },
     "schedule-run-sequential-enrollment": {
         "task": "flourish.tasks.run_sequential_enrollment",
-        "schedule": crontab(hour=19, minute=0, day_of_week='mon-fri') 
+        "schedule": crontab(hour=19, minute=0, day_of_week='mon-fri')
+    },
+    "schedule-load-children-turning-6-months": {
+        "task": "flourish.tasks.load_children_turning_6_months",
+        "schedule": crontab(hour=4, minute=0, day_of_week='mon')
     },
 }
