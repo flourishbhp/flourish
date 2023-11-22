@@ -5,6 +5,7 @@ from edc_base.utils import age
 from django.core.management import BaseCommand
 from flourish_facet.models import MotherChildConsent
 from flourish_calendar.models import Reminder
+from flourish_calendar.constants import ONCE
 
 
 class Command(BaseCommand):
@@ -40,7 +41,7 @@ class Command(BaseCommand):
             reminder = Reminder()
             reminder.title = "FACET Children turning 6 months next week"
             reminder.start_date = datetime.now().date()
-            reminder.end_date = datetime.now().date()
+            reminder.repeat = ONCE
             reminder.note = f'''The following PIDs are for children turn \
                 6 months next week\n {', '.join(subject_identifiers)}'''
             reminder.remainder_time = datetime.now()
@@ -49,7 +50,7 @@ class Command(BaseCommand):
             reminder = Reminder()
             reminder.title = "FACET Children turning 6 months next week"
             reminder.start_date = datetime.now().date()
-            reminder.end_date = datetime.now().date()
+            reminder.repeat = ONCE
             reminder.note = '''No children tunrning 6 months next week'''
             reminder.remainder_time = datetime.now()
             reminder.save()
