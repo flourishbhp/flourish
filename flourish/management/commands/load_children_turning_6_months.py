@@ -1,7 +1,7 @@
-import csv
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from edc_base.utils import age
+from datetime import datetime
+from datetime import date
+from dateutil.relativedelta import relativedelta, MO
+from dateutil.rrule import rrule, DAILY
 from django.core.management import BaseCommand
 from flourish_facet.models import MotherChildConsent
 from flourish_calendar.models import Reminder
@@ -18,56 +18,44 @@ class Command(BaseCommand):
         MotherChildConsent.objects.values_list('sub')
 
     def handle(self, *args, **options):
-        facet_child_consents = MotherChildConsent.objects.all()
 
-        next_week_dates = self.generate_next_week_dates()
+        # Calculate all the Mondays in the current month
+        mondays = self.get_mondays_of_current_month()
 
-        # monday (of next week)
-        first_day = next_week_dates[0]
+        # Iterate through each Monday
+        for monday in mondays:
+            title = f"FACET Age calculation for {monday.strftime('%Y-%m-%d')}:\n"
+            print(title)
 
-        # sunday (of next week)
-        last_day = next_week_dates[-1]
+            descriptions = []
 
-        subject_identifiers = []
+            # Iterate through each child in the queryset
+            for child in MotherChildConsent.objects.all():
+                # Calculate age using dateutil.relativedelta
+                age_delta = relativedelta(monday, child.child_dob)
 
-        for consent in facet_child_consents:
+                if age_delta.months == 6 and age_delta.years == 0:  # Considering turning 6 months
+                    description = f"Child with PID {child.subject_identifier} born on {child.child_dob.strftime('%Y-%m-%d')} is turning 6 months (age: {age_delta.months} months)"
 
-            date_after_months = consent.child_dob + relativedelta(months=6)
+                    descriptions.append(description)
 
-            if first_day <= date_after_months <= last_day:
-                subject_identifiers.append(consent.subject_identifier)
-
-        if subject_identifiers:
-            reminder = Reminder()
-            reminder.title = "FACET Children turning 6 months next week"
-            reminder.start_date = datetime.now().date()
-            reminder.repeat = ONCE
-            reminder.note = f'''The following PIDs are for children turn \
-                6 months next week\n {', '.join(subject_identifiers)}'''
-            reminder.remainder_time = datetime.now()
-            reminder.save()
-        else:
-            reminder = Reminder()
-            reminder.title = "FACET Children turning 6 months next week"
-            reminder.start_date = datetime.now().date()
-            reminder.repeat = ONCE
-            reminder.note = '''No children tunrning 6 months next week'''
-            reminder.remainder_time = datetime.now()
-            reminder.save()
+            if descriptions:
+                reminder = Reminder()
+                reminder.title = title
+                reminder.start_date = monday.date()
+                reminder.datetime = monday
+                reminder.repeat = ONCE
+                reminder.note = '\n'.join(descriptions)
+                reminder.remainder_time = datetime.now().time()
+                reminder.save()
 
     @staticmethod
-    def generate_next_week_dates():
-        # Get the current date
-        today = datetime.today()
+    def get_mondays_of_current_month():
+        today = date.today()
+        first_day_of_month = today.replace(day=1)
 
-        # Calculate the number of days until the next Monday
-        days_until_next_monday = 7 - today.weekday()
+        # Find all Mondays in the current month
+        mondays = list(rrule(DAILY, dtstart=first_day_of_month,
+                       until=first_day_of_month + relativedelta(day=31), byweekday=MO))
 
-        # Calculate the date for the next Monday
-        next_monday = today + timedelta(days=days_until_next_monday)
-
-        # Generate a list of dates for the next week (Monday to Sunday)
-        next_week_dates = [(next_monday + timedelta(days=i)).date()
-                           for i in range(7)]
-
-        return next_week_dates
+        return mondays
