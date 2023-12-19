@@ -1,4 +1,5 @@
 import os
+from tqdm import tqdm
 from django.apps import apps as django_apps
 from django.core.management.base import BaseCommand, CommandError
 from edc_base.model_mixins import ListModelMixin
@@ -31,7 +32,7 @@ class Command(BaseCommand):
         # Check args defined for specific app_label and/or model name(s)
         for model_args in args:
             try:
-                model_args.split('.')
+                _app_label, _model_name = model_args.split('.')
             except ValueError:
                 # This is just an app - no model qualifier
                 try:
@@ -55,7 +56,7 @@ class Command(BaseCommand):
             other relationship models that will be included as part of the main parent data.
             @param app_list: dictionary of model_name: model_cls
         """
-        for _, model_cls in app_list.items():
+        for _, model_cls in tqdm(app_list.items()):
             app_label = model_cls._meta.app_label
             # Check model class is m2m, skip
             if issubclass(model_cls, ListModelMixin):
