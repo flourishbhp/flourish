@@ -211,7 +211,7 @@ EMAIL_HOST_PASSWORD = config['email_conf'].get('email_host_pwd')
 # Celery configurations
 CELERY_TIMEZONE = 'Africa/Gaborone'
 CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_INCLUDE = ['flourish_child.utils', 'edc_odk.tasks', ]
+CELERY_INCLUDE = ['flourish_child.utils', ]
 # CELERY_RESULT_BACKEND = 'file:///etc/celery/results'
 
 # Password validation
