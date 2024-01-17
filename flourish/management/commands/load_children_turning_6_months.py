@@ -1,8 +1,10 @@
-from datetime import datetime
-from datetime import date
-from dateutil.relativedelta import relativedelta, MO
-from dateutil.rrule import rrule, DAILY
+import pytz
+from datetime import datetime, timedelta, date, time
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
+
 from django.core.management import BaseCommand
+from django.apps import apps as django_apps
 from flourish_facet.models import MotherChildConsent
 from flourish_calendar.models import Reminder
 from flourish_calendar.constants import ONCE
@@ -18,44 +20,79 @@ class Command(BaseCommand):
         MotherChildConsent.objects.values_list('sub')
 
     def handle(self, *args, **options):
+        turning_six_months_children = self.populate_children_turning_six_months()
+        self.create_reminders(turning_six_months_children)
 
-        # Calculate all the Mondays in the current month
-        mondays = self.get_mondays_of_current_month()
+    def generate_weeks_between_dates(self, start_date, end_date):
+        current_date = start_date
+        target_weeks = []
 
-        # Iterate through each Monday
-        for monday in mondays:
-            title = f"FACET Age calculation for {monday.strftime('%Y-%m-%d')}:\n"
-            print(title)
+        while current_date <= end_date:
+            target_week_start = current_date
+            target_week_end = current_date + timedelta(days=7)
+            target_weeks.append((target_week_start, target_week_end))
+            current_date += timedelta(weeks=1)
 
-            descriptions = []
+        return target_weeks
 
-            # Iterate through each child in the queryset
-            for child in MotherChildConsent.objects.all():
-                # Calculate age using dateutil.relativedelta
-                age_delta = relativedelta(monday, child.child_dob)
+    def populate_children_turning_six_months(self):
+        turning_six_months_children = defaultdict(lambda: set())
 
-                if age_delta.months == 6 and age_delta.years == 0:  # Considering turning 6 months
-                    description = f"Child with PID {child.subject_identifier} born on {child.child_dob.strftime('%Y-%m-%d')} is turning 6 months (age: {age_delta.months} months)"
+        edc_protocol = django_apps.get_app_config('edc_protocol')
 
-                    descriptions.append(description)
+        start_date = date(2023, 10, 2)
+        end_date = edc_protocol.study_close_datetime.date()
 
-            if descriptions:
-                reminder = Reminder()
-                reminder.title = title
-                reminder.start_date = monday.date()
-                reminder.datetime = monday
-                reminder.repeat = ONCE
-                reminder.note = '\n'.join(descriptions)
-                reminder.remainder_time = datetime.now().time()
-                reminder.save()
+        weeks_between_dates = self.generate_weeks_between_dates(
+            start_date, end_date)
 
-    @staticmethod
-    def get_mondays_of_current_month():
-        today = date.today()
-        first_day_of_month = today.replace(day=1)
+        for child in MotherChildConsent.objects.only(
+                'subject_identifier', 'child_dob'):
 
-        # Find all Mondays in the current month
-        mondays = list(rrule(DAILY, dtstart=first_day_of_month,
-                       until=first_day_of_month + relativedelta(day=31), byweekday=MO))
+            if not child.child_dob:
+                continue
 
-        return mondays
+            six_months_date = child.child_dob + relativedelta(months=6)
+
+            for target_week_start, target_week_end in weeks_between_dates:
+
+                if target_week_start <= six_months_date <= target_week_end:
+
+                    turning_six_months_children[target_week_start.isoformat()].add(
+                        child.subject_identifier)
+
+        return turning_six_months_children
+
+    def create_reminders(self, turning_six_months_children):
+        new_reminder_objs = []
+
+        for monday_iso_date, subject_identifiers in turning_six_months_children.items():
+
+            monday_date = date.fromisoformat(
+                monday_iso_date) + timedelta(days=1)
+
+            title = "FACET Children turning 6 months next week"
+            note = "No children tunrning 6 months next week"
+
+            if subject_identifiers:
+                note = f'The following PIDs are for children turn 6 months next week - {", ".join(subject_identifiers)}'
+
+            try:
+                Reminder.objects.get(
+                    title=title,
+                    start_date=monday_date,
+                )
+
+            except Reminder.DoesNotExist:
+
+                reminder_obj = Reminder(
+                    start_date=monday_date,
+                    title=title,
+                    note=note,
+                    datetime=datetime.combine(monday_date, time(
+                        0, 0)).astimezone(pytz.UTC),
+                    repeat=ONCE,
+                    remainder_time=time(0, 0,).replace(tzinfo=None),)
+                new_reminder_objs.append(reminder_obj)
+
+        Reminder.objects.bulk_create(new_reminder_objs)
