@@ -6,10 +6,11 @@ from edc_base.model_mixins import ListModelMixin
 
 from flourish_caregiver.admin_site import flourish_caregiver_admin
 from flourish_child.admin_site import flourish_child_admin
-
+from flourish_facet.admin_site import flourish_facet_admin
 
 admin_site_map = {'flourish_child': flourish_child_admin,
-                  'flourish_caregiver': flourish_caregiver_admin, }
+                  'flourish_caregiver': flourish_caregiver_admin,
+                  'flourish_facet': flourish_facet_admin}
 
 
 class Command(BaseCommand):
@@ -21,7 +22,7 @@ class Command(BaseCommand):
             metavar='app_label[.ModelName]',
             nargs='*',
             help='Exports data for a specified app_label or app_label.ModelName')
-        
+
     def handle(self, *args, **kwargs):
         app_list = {}
         if not args:
@@ -46,9 +47,11 @@ class Command(BaseCommand):
                 try:
                     model_cls = django_apps.get_model(model_args)
                 except LookupError as e:
-                    raise CommandError(f'Model not loaded/recognised {model_args}')
+                    raise CommandError(
+                        f'Model not loaded/recognised {model_args}')
                 else:
-                    app_list.update({f'{model_cls._meta.model_name}': model_cls})
+                    app_list.update(
+                        {f'{model_cls._meta.model_name}': model_cls})
         self.exclude_rel_models(app_list)
 
     def exclude_rel_models(self, app_list):
@@ -61,15 +64,17 @@ class Command(BaseCommand):
             # Check model class is m2m, skip
             if issubclass(model_cls, ListModelMixin):
                 continue
-            intermediate_model = model_cls._meta.verbose_name.endswith('relationship')
+            intermediate_model = model_cls._meta.verbose_name.endswith(
+                'relationship')
             if intermediate_model:
                 continue
             # Check if model is inline model, by checking foreign key relation/m2one
             # inline_model = any([field.is_relation and field.many_to_one for field in model_cls._meta.get_fields()])
-            
-            self.stdout.write(self.style.SUCCESS(f'Begin export for {model_cls._meta.verbose_name}'))
+
+            self.stdout.write(self.style.SUCCESS(
+                f'Begin export for {model_cls._meta.verbose_name}'))
             self.run_export(model_cls, app_label)
-        
+
     def run_export(self, model_cls, app_label):
         """ Executes the csv model export method from admin export action(s) and writes response
             content to an excel file.
@@ -90,15 +95,26 @@ class Command(BaseCommand):
                 self.style.ERROR(f'Empty queryset returned for {model_cls._meta.verbose_name}'))
         else:
             file_path = f'media/admin_exports/{app_label}'
-            response = model_admin_cls.export_as_csv(request=None, queryset=queryset)
 
-            if response.status_code == 200:
-                if not os.path.exists(file_path):
-                    os.makedirs(file_path)
-                with open(f'{file_path}/{model_admin_cls.get_export_filename()}.xls', 'wb') as file:
-                    file.write(response.content)
-    
-                self.stdout.write(
-                    self.style.SUCCESS(f'Export complete for {model_cls._meta.verbose_name}'))
-            else:
-                response.raise_for_status()
+            if hasattr(model_admin_cls, 'export_as_csv'):
+                """
+                Can be used to exclude some models not needed in the exports
+                by excluding the mixin from the model admin of interest
+                """
+                response = model_admin_cls.export_as_csv(
+                    request=None, queryset=queryset)
+
+                if response:
+                    if response.status_code == 200:
+                        if not os.path.exists(file_path):
+                            os.makedirs(file_path)
+                        with open(f'{file_path}/{model_admin_cls.get_export_filename()}.xls', 'wb') as file:
+                            file.write(response.content)
+
+                        self.stdout.write(
+                            self.style.SUCCESS(f'Export complete for {model_cls._meta.verbose_name}'))
+                    else:
+                        response.raise_for_status()
+                else:
+                    self.stdout.write(
+                        self.style.ERROR(f'Empty response returned for {model_cls._meta.verbose_name}'))

@@ -47,13 +47,13 @@ class Command(BaseCommand):
             fields_data = data_item.get('fields')
             for field in m2m_fields:
                 m2m_field = field.replace(f'{model_name}_', '')
-                m2m_name = getattr(django_apps.get_model(model), m2m_field).field.related_model._meta.model_name
+                m2m_name = getattr(django_apps.get_model(model), m2m_field).field.related_model._meta.label
 
                 # Represented as a list of a list on the data [['value']]
                 old_values = fields_data.get(m2m_field)
 
                 self.update_m2m_data(
-                    model_obj, field_name=m2m_field, old_values=old_values, model_name=f'{label}.{m2m_name}')
+                    model_obj, field_name=m2m_field, old_values=old_values, model_name=m2m_name.lower())
             updated += 1
         self.stdout.write(self.style.WARNING(f'Total records updated: {updated}'))
 
@@ -82,9 +82,14 @@ class Command(BaseCommand):
             new_value = list_data_map.get(value[0])
             m2m_obj = self.get_model_obj(
                 model_name=model_name, key='short_name', value=new_value)
-            getattr(obj, field_name).add(m2m_obj)
-            self.stdout.write(self.style.SUCCESS(
-                f'Updated {obj.id}, {field_name}: value => {new_value}'))
+            try:
+                m2m_manger = getattr(obj, field_name)
+            except AttributeError:
+                self.stdout.write(self.style.ERROR(f'Failed {getattr(obj, "id", obj)}, {field_name}'))
+            else:
+                m2m_manger.add(m2m_obj)
+                self.stdout.write(self.style.SUCCESS(
+                    f'Updated {obj.id}, {field_name}: value => {new_value}'))
 
     def old_list_data(self, model_name=None):
         old_list_data.list_data.update(child_old_list.list_data)
