@@ -30,6 +30,8 @@ class HomeView(StatisticsMixin,
             total_maternal_delivery=self.total_maternal_delivery,
             total_prev_caregivers_offstudy=self.total_prev_caregivers_offstudy,
             total_prev_child_offstudy=self.total_prev_child_offstudy,
+            total_caregivers_deaths=self.total_caregivers_deaths,
+            total_child_deaths=self.total_child_deaths,
             total_prev_caregivers_deaths=self.total_prev_caregivers_deaths,
             total_prev_child_deaths=self.total_prev_child_deaths
         )

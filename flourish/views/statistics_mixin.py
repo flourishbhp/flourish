@@ -29,6 +29,18 @@ class StatisticsMixin(EdcBaseViewMixin):
 
     child_visit_model = 'flourish_child.childvisit'
 
+    child_death_report_model = 'flourish_prn.childdeathreport'
+
+    caregiver_death_report_model = 'flourish_prn.caregiverdeathreport'
+
+    @property
+    def child_death_report_cls(self):
+        return django_apps.get_model(self.child_death_report_model)
+
+    @property
+    def caregiver_death_report_cls(self):
+        return django_apps.get_model(self.caregiver_death_report_model)
+
     @property
     def maternal_visit_cls(self):
         return django_apps.get_model(self.maternal_visit_model)
@@ -91,24 +103,24 @@ class StatisticsMixin(EdcBaseViewMixin):
     def total_flourish_consents(self):
         """Returns flourish consents.
         """
-        return self.subject_consent_cls.objects.values_list('subject_identifier').distinct().count()
+        return len(set(self.subject_consent_cls.objects.values_list('subject_identifier')))
 
     @property
     def total_child_assents(self):
         child_assent_cls = django_apps.get_model('flourish_child.childassent')
-        return child_assent_cls.objects.values_list('subject_identifier').distinct().count()
+        return len(set(child_assent_cls.objects.values_list('subject_identifier')))
 
     @property
     def total_child_consents(self):
         child_consent_cls = django_apps.get_model(
             'flourish_caregiver.caregiverchildconsent')
-        return child_consent_cls.objects.values_list('subject_identifier').distinct().count()
+        return len(set(child_consent_cls.objects.values_list('subject_identifier')))
 
     @property
     def total_continued_consents(self):
         continued_consent_cls = django_apps.get_model(
             'flourish_child.childcontinuedconsent')
-        return continued_consent_cls.objects.values_list('subject_identifier').distinct().count()
+        return len(set(continued_consent_cls.objects.values_list('subject_identifier')))
 
     @property
     def total_caregiver_prev_study(self):
@@ -121,11 +133,11 @@ class StatisticsMixin(EdcBaseViewMixin):
         caregiver_offstudy_subject_identifier = self.caregiver_offstudy_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-        subject_consents = self.subject_consent_cls.objects.filter(
+        subject_consents = set(self.subject_consent_cls.objects.filter(
             Q(screening_identifier__in=metadataset_screening_identifier) & ~Q(
                 subject_identifier__in=caregiver_offstudy_subject_identifier)).values_list(
-            'subject_identifier', flat=True).distinct().count()
-        return subject_consents
+            'subject_identifier', flat=True))
+        return len(subject_consents)
 
     @property
     def total_child_prev(self):
@@ -147,8 +159,8 @@ class StatisticsMixin(EdcBaseViewMixin):
         All women who consented when pregnant (on and off study)
         """
 
-        return self.antenatal_enrollment_cls.objects.values_list(
-            'subject_identifier').distinct().count()
+        return len(set(self.antenatal_enrollment_cls.objects.values_list(
+            'subject_identifier')))
 
     @property
     def total_consented_pregnant_women(self):
@@ -159,10 +171,10 @@ class StatisticsMixin(EdcBaseViewMixin):
         maternal_offstudy_subject_identifiers = self.caregiver_offstudy_cls.objects.values_list(
             'subject_identifier', flat=True).distinct()
 
-        all_consented_women = self.antenatal_enrollment_cls.objects.exclude(
+        all_consented_women = set(self.antenatal_enrollment_cls.objects.exclude(
             subject_identifier__in=maternal_offstudy_subject_identifiers).values_list(
-                'subject_identifier', flat=True).distinct().count()
-        return all_consented_women
+                'subject_identifier', flat=True))
+        return len(all_consented_women)
 
     @property
     def total_currently_pregnant_women(self):
@@ -176,12 +188,12 @@ class StatisticsMixin(EdcBaseViewMixin):
         maternal_delivery_subject_identifiers = self.maternal_delivery_cls.objects.values_list(
             'subject_identifier', flat=True).distinct()
 
-        currently_preg = self.antenatal_enrollment_cls.objects.exclude(
+        currently_preg = set(self.antenatal_enrollment_cls.objects.exclude(
             Q(subject_identifier__in=maternal_offstudy_subject_identifiers) |
             Q(subject_identifier__in=maternal_delivery_subject_identifiers)).values_list(
-                'subject_identifier', flat=True).distinct().count()
+                'subject_identifier', flat=True))
 
-        return currently_preg
+        return len(currently_preg)
 
     @property
     def total_maternal_delivery(self):
@@ -190,8 +202,8 @@ class StatisticsMixin(EdcBaseViewMixin):
          gave birth who are currently On-Study
         """
 
-        return self.maternal_delivery_cls.objects.values_list('subject_identifier',
-                                                              flat=True).distinct().count()
+        return len(set(self.maternal_delivery_cls.objects.values_list('subject_identifier',
+                                                                      flat=True)))
 
     @property
     def total_prev_caregivers_offstudy(self):
@@ -206,15 +218,21 @@ class StatisticsMixin(EdcBaseViewMixin):
         ).count()
 
     @property
+    def total_caregivers_deaths(self):
+        return self.caregiver_death_report_cls.objects.count()
+
+    @property
+    def total_child_deaths(self):
+        return self.child_death_report_cls.objects.count()
+
+    @property
     def total_prev_caregivers_deaths(self):
-        return self.maternal_visit_cls.objects.filter(
+        return self.caregiver_death_report_cls.objects.filter(
             subject_identifier__in=self.prior_bhp_maternal_subject_identifiers,
-            survival_status=DEAD
         ).count()
 
     @property
     def total_prev_child_deaths(self):
-        return self.child_visit_cls.objects.filter(
+        return self.child_death_report_cls.objects.filter(
             subject_identifier__in=self.prior_bhp_child_subject_identifiers,
-            survival_status=DEAD
         ).count()
