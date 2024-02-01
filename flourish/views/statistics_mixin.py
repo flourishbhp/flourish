@@ -202,8 +202,7 @@ class StatisticsMixin(EdcBaseViewMixin):
          gave birth who are currently On-Study
         """
 
-        return len(set(self.maternal_delivery_cls.objects.values_list('subject_identifier',
-                                                                      flat=True)))
+        return self.maternal_delivery_cls.objects.count()
 
     @property
     def total_prev_caregivers_offstudy(self):
