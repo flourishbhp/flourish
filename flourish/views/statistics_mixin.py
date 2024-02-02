@@ -72,8 +72,9 @@ class StatisticsMixin(EdcBaseViewMixin):
     @property
     def prior_bhp_maternal_subject_identifiers(self):
         subject_identifiers = set(
-            self.maternal_dataset_cls.objects.values_list(
-                'subject_identifier', flat=True))
+            self.subject_consent_cls.objects.filter(
+                recruitment_clinic__iexact='prior').values_list(
+                    'subject_identifier', flat=True))
         return subject_identifiers
 
     @property
