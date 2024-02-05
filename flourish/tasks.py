@@ -1,11 +1,17 @@
-import os
-from celery import shared_task
+import os, shutil, json
+from tqdm import tqdm
+from celery import shared_task, group
 from django.apps import apps as django_apps
 from django.core.management import call_command
 
+from edc_base.utils import get_utcnow
 from flourish_caregiver.admin_site import flourish_caregiver_admin
 from flourish_child.admin_site import flourish_child_admin
 from flourish_facet.admin_site import flourish_facet_admin
+from flourish_export.identifiers import ExportIdentifier
+from django.core.mail import send_mail
+from django.conf import settings
+from django.core.cache import cache
 
 
 @shared_task
@@ -41,7 +47,7 @@ def run_exports(model_cls, app_label):
     elif not queryset.exists():
         raise ValueError(f'Empty queryset returned for {model_cls._meta.verbose_name}')
     else:
-        file_path = f'media/admin_exports/{app_label}'
+        file_path = f'media/admin_exports/{app_label}_{get_utcnow().date()}'
 
         if hasattr(model_admin_cls, 'export_as_csv'):
             """
@@ -61,3 +67,69 @@ def run_exports(model_cls, app_label):
                     response.raise_for_status()
             else:
                 raise ValueError(f'Empty response returned for {model_cls._meta.verbose_name}')
+
+
+@shared_task
+def generate_export_and_send_email(
+        app_list, export_type, create_zip=False, app_labels=[], user_emails=[]):
+
+    # Construct the lock key based on the export type
+    lock_key = f'export_lock_{export_type}'
+
+    # Check if another export of the same type is already running
+    if cache.get(lock_key):
+        print(f'Another {export_type} export task is already running. Skipping.')
+        return
+    try:
+        cache.set(lock_key, True)
+        
+        export_model_cls = django_apps.get_model('flourish_export.exportfile')
+        # Create a list to store the group of export tasks
+        export_tasks = []
+
+        for _, model_cls in tqdm(app_list.items()):
+            app_label = model_cls.split('.')[0]
+
+            # Call the export_data task asynchronously and store the task
+            export_tasks.append(run_exports.si(model_cls, app_label))
+    
+        # Group all export tasks together
+        export_group = group(export_tasks)
+    
+        # Execute the group of export tasks and wait for all tasks to complete
+        result = export_group.apply_async()
+        result.get()
+    
+        if create_zip:
+            for app_label in app_labels:
+                zip_folder = f'media/admin_exports/{app_label}__{get_utcnow().date()}'
+                # Zip the exported files
+                if not os.path.isfile(zip_folder):
+                    shutil.make_archive(zip_folder, 'zip', zip_folder)
+    
+                export_identifier = ExportIdentifier().identifier
+                description = f'{app_label.replace("_", " ").title()} Export(s)'
+                model_options = {
+                    'description': description,
+                    'study': app_label,
+                    'export_identifier': export_identifier,
+                    'download_time': get_utcnow().time(),
+                    'document': f'{zip_folder}.zip'}
+    
+                export_model_cls.objects.create(**model_options)
+    
+                subject = f'{export_identifier} {description}'
+                message = (f'{export_identifier} {description} have been successfully '
+                           'generated and ready for download. This is an automated message.')
+
+                try:
+                    send_mail(subject=subject,
+                              message=message,
+                              from_email=settings.DEFAULT_FROM_EMAIL,
+                              receipient_list=user_emails,
+                              fail_silently=False)
+                except Exception as e:
+                    print(f'Error sending email: {str(e)}')
+
+    finally:
+        cache.delete(lock_key)
