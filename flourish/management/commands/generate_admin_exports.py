@@ -8,6 +8,8 @@ from flourish_caregiver.admin_site import flourish_caregiver_admin
 from flourish_child.admin_site import flourish_child_admin
 from flourish_facet.admin_site import flourish_facet_admin
 
+from flourish.tasks import run_exports
+
 admin_site_map = {'flourish_child': flourish_child_admin,
                   'flourish_caregiver': flourish_caregiver_admin,
                   'flourish_facet': flourish_facet_admin}
@@ -69,11 +71,14 @@ class Command(BaseCommand):
             if intermediate_model:
                 continue
             # Check if model is inline model, by checking foreign key relation/m2one
-            # inline_model = any([field.is_relation and field.many_to_one for field in model_cls._meta.get_fields()])
-
-            self.stdout.write(self.style.SUCCESS(
-                f'Begin export for {model_cls._meta.verbose_name}'))
-            self.run_export(model_cls, app_label)
+            model_cls = model_cls._meta.label_lower
+            try:
+                run_exports.delay(model_cls, app_label)
+                self.stdout.write(self.style.SUCCESS(
+                    f'Begin export for {model_cls}'))
+            except ValueError as e:
+                self.stdout.write(
+                    self.style.WARNING(f'{str(e)}'))
 
     def run_export(self, model_cls, app_label):
         """ Executes the csv model export method from admin export action(s) and writes response
@@ -108,7 +113,7 @@ class Command(BaseCommand):
                     if response.status_code == 200:
                         if not os.path.exists(file_path):
                             os.makedirs(file_path)
-                        with open(f'{file_path}/{model_admin_cls.get_export_filename()}.xls', 'wb') as file:
+                        with open(f'{file_path}/{model_admin_cls.get_export_filename()}.xlsx', 'wb') as file:
                             file.write(response.content)
 
                         self.stdout.write(
