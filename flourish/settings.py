@@ -359,6 +359,10 @@ DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
+REDCAP_API_URL = 'https://redcap-dev.bhp.org.bw/api/'
+
+REDCAP_API_TOKEN = 'B7F721F715DBDBC60FBEA0A38F061DCE'
+
 
 CACHEOPS = {
     'flourish_caregiver.*': {'ops': 'all', 'timeout': 60*60*24},
