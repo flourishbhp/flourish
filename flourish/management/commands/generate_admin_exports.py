@@ -1,14 +1,12 @@
-import os, json
-from tqdm import tqdm
 from django.apps import apps as django_apps
 from django.core.management.base import BaseCommand, CommandError
-from edc_base.model_mixins import ListModelMixin
 
 from flourish_caregiver.admin_site import flourish_caregiver_admin
 from flourish_child.admin_site import flourish_child_admin
 from flourish_facet.admin_site import flourish_facet_admin
 
-from flourish.tasks import generate_export_and_send_email
+from flourish.tasks import generate_exports
+from flourish_export.admin_export_helper import AdminExportHelper
 
 admin_site_map = {'flourish_child': flourish_child_admin,
                   'flourish_caregiver': flourish_caregiver_admin,
@@ -26,7 +24,9 @@ class Command(BaseCommand):
             help='Exports data for a specified app_label or app_label.ModelName')
 
     def handle(self, *args, **kwargs):
+        export_helper_cls = AdminExportHelper()
         app_list = {}
+
         if not args:
             # Get all CRF models from `flourish_caregiver` and `flourish_child` app configs,
             # update to dictionary {model_name: models_cls} key, value pair.
@@ -55,22 +55,6 @@ class Command(BaseCommand):
                     app_list.update(
                         {f'{model_cls._meta.model_name}': model_cls})
 
-        app_list = {key: value._meta.label_lower for key, value in app_list.items() if not self.exclude_rel_models(value)}
+        app_list = export_helper_cls.remove_exclude_models(app_list)
 
-        generate_export_and_send_email.delay(app_list, 'management_command', )
-
-    def exclude_rel_models(self, model_cls):
-        """ Restrict the export to only CRFs and enrolment forms, excludes m2m,
-            inlines and any other relationship models that will be included as
-            part of the main parent data.
-            @param app_list: dictionary of model_name: model_cls
-        """
-        exclude = False
-        # Check model class is m2m, skip
-        if issubclass(model_cls, ListModelMixin):
-            exclude = True
-        intermediate_model = model_cls._meta.verbose_name.endswith(
-            'relationship')
-        if intermediate_model:
-            exclude = True
-        return exclude
+        generate_exports.delay(app_list, 'management_command', )
