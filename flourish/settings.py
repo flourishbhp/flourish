@@ -210,9 +210,9 @@ EMAIL_HOST_PASSWORD = config['email_conf'].get('email_host_pwd')
 
 # Celery configurations
 CELERY_TIMEZONE = 'Africa/Gaborone'
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_INCLUDE = ['flourish_child.utils', ]
-# CELERY_RESULT_BACKEND = 'file:///etc/celery/results'
+CELERY_BROKER_URL = 'redis://localhost'
+CELERY_RESULT_BACKEND = 'redis://localhost'
+CELERY_INCLUDE = ['flourish_child.utils', 'flourish.tasks']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
