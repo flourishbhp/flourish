@@ -359,9 +359,9 @@ DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
-REDCAP_API_URL = 'https://redcap-dev.bhp.org.bw/api/'
+REDCAP_API_URL = config['redcap_server'].get('redcap_url')
 
-REDCAP_API_TOKEN = 'B7F721F715DBDBC60FBEA0A38F061DCE'
+REDCAP_API_TOKEN = config['redcap_server'].get('token')
 
 
 CACHEOPS = {
