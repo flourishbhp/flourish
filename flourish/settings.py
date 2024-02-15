@@ -361,7 +361,7 @@ CACHEOPS_REDIS = "redis://localhost:6379/1"
 
 REDCAP_API_URL = config['redcap_server'].get('redcap_url')
 
-REDCAP_API_TOKEN = config['redcap_server'].get('token')
+REDCAP_API_TOKEN = config['redcap_server'].get('redcap_token')
 
 
 CACHEOPS = {
