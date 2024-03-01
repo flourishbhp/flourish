@@ -293,12 +293,13 @@ DASHBOARD_URL_NAMES = {
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
     'facet_flourish_consent_listboard_url': 'flourish_facet:facet_flourish_consent_listboard_url',
     'group_interview_listboard_url': 'flourish_facet:group_interview_listboard_url',
+    'facet_export_listboard_url':'flourish_facet:facet_export_listboard_url',
     # Senaite Interface URLs
     # Use caregiver result listboard as default/entry listboard.
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
     'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
     # Cohort switch url
-    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url'
+    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -337,6 +338,7 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html',
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     'group_interview_listboard_template': 'flourish_facet/interview/listboard.html',
+    'facet_export_listboard_template':'flourish_facet/facet_export_listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
     # Cohort switch template
