@@ -7,227 +7,366 @@
 
 
 {% block extra-styles %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
-    <style>
-        .my-card {
-            position: absolute;
-            left: 40%;
-            top: -20px;
-            border-radius: 50%;
-        }
-    </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<style>
+    .my-card {
+        position: absolute;
+        left: 40%;
+        top: -20px;
+        border-radius: 50%;
+    }
+</style>
 {% endblock extra-styles %}
 
 {% block main %}
+<div class="row w-100 jumbotron">
+    <div class="col-md-3">
+        <div class="card border-info mx-sm-1 p-3">
+            <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
+            <div class="text-info text-center mt-3">
+                <h4>Caregiver Consents</h4>
+            </div>
+            <div class="text-info text-center mt-2">
+                <h1>{{ flourish_consents }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-success mx-sm-1 p-3">
+            <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span></div>
+            <div class="text-success text-center mt-3">
+                <h4>Children</h4>
+            </div>
+            <div class="text-success text-center mt-2">
+                <h1>{{ child_consents }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-danger mx-sm-1 p-3">
+            <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span></div>
+            <div class="text-danger text-center mt-3">
+                <h4>Assents</h4>
+            </div>
+            <div class="text-danger text-center mt-2">
+                <h1>{{ flourish_assents }}</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-warning mx-sm-1 p-3">
+            <div class="card border-warning shadow text-warning p-3 my-card"><span aria-hidden="true"></span></div>
+            <div class="text-warning text-center mt-3">
+                <h4>Continued Consents</h4>
+            </div>
+            <div class="text-warning text-center mt-2">
+                <h1>{{ continued_consents }}</h1>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="row">
+
     <div class="row w-100 jumbotron">
         <div class="col-md-3">
             <div class="card border-info mx-sm-1 p-3">
                 <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
-                <div class="text-info text-center mt-3"><h4>Caregiver Consents</h4></div>
-                <div class="text-info text-center mt-2"><h1>{{ flourish_consents }}</h1></div>
+                <div class="text-info text-center mt-3">
+                    <h7>Previous BHP Caregivers</h7>
+                </div>
+                <div class="text-info text-center mt-2">
+                    <h1>{{ total_caregiver_prev_study }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
+                    Caregivers from previous BHP studies Currently on-Study</p>
             </div>
         </div>
         <div class="col-md-3">
             <div class="card border-success mx-sm-1 p-3">
-                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span></div>
-                <div class="text-success text-center mt-3"><h4>Children</h4></div>
-                <div class="text-success text-center mt-2"><h1>{{ child_consents }}</h1></div>
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Previous BHP Children</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_child_prev }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
+                    Children from previous BHP studies Currently on-Study</p>
+
             </div>
         </div>
         <div class="col-md-3">
             <div class="card border-danger mx-sm-1 p-3">
-                <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span></div>
-                <div class="text-danger text-center mt-3"><h4>Assents</h4></div>
-                <div class="text-danger text-center mt-2"><h1>{{ flourish_assents }}</h1></div>
+                <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-danger text-center mt-3">
+                    <h7>Consented Pregnant Women (1)</h7>
+                </div>
+                <div class="text-danger text-center mt-2">
+                    <h1>{{ total_all_preg_women }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">All
+                    women who consented when pregnant <span style="color: red">(on and off study)</span></p>
+
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card border-warning mx-sm-1 p-3">
-                <div class="card border-warning shadow text-warning p-3 my-card"><span aria-hidden="true"></span></div>
-                <div class="text-warning text-center mt-3"><h4>Continued Consents</h4></div>
-                <div class="text-warning text-center mt-2"><h1>{{ continued_consents }}</h1></div>
+            <div class="card border-danger mx-sm-1 p-3">
+                <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-danger text-center mt-3">
+                    <h7>Consented Pregnant Women (2)</h7>
+                </div>
+                <div class="text-danger text-center mt-2">
+                    <h1>{{ total_consented_pregnant_women }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">All
+                    women who consented when pregnant – <span style="color: red">Currently ON- study</span></p>
+
             </div>
         </div>
     </div>
-    </div>
-    <div class="row">
+</div>
 
-        <div class="row w-100 jumbotron">
-            <div class="col-md-3">
-                <div class="card border-info mx-sm-1 p-3">
-                    <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
-                    <div class="text-info text-center mt-3">
-                        <h7>Previous BHP Caregivers</h7>
-                    </div>
-                    <div class="text-info text-center mt-2"><h1>{{ total_caregiver_prev_study }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
-                        Caregivers from previous BHP studies Currently on-Study</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-success mx-sm-1 p-3">
-                    <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
-                    </div>
-                    <div class="text-success text-center mt-3">
-                        <h7>Previous BHP Children</h7>
-                    </div>
-                    <div class="text-success text-center mt-2"><h1>{{ total_child_prev }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
-                        Children from previous BHP studies Currently on-Study</p>
 
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-danger mx-sm-1 p-3">
-                    <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span>
-                    </div>
-                    <div class="text-danger text-center mt-3">
-                        <h7>Consented Pregnant Women (1)</h7>
-                    </div>
-                    <div class="text-danger text-center mt-2"><h1>{{ total_all_preg_women }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">All
-                        women who consented when pregnant <span style="color: red">(on and off study)</span></p>
+<div class="row">
 
+    <div class="row w-100 jumbotron">
+        <div class="col-md-3">
+            <div class="card border-info mx-sm-1 p-3">
+                <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3">
+                    <h7>Currently Pregnant</h7>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-danger mx-sm-1 p-3">
-                    <div class="card border-danger shadow text-danger p-3 my-card"><span aria-hidden="true"></span>
-                    </div>
-                    <div class="text-danger text-center mt-3">
-                        <h7>Consented Pregnant Women (2)</h7>
-                    </div>
-                    <div class="text-danger text-center mt-2"><h1>{{ total_consented_pregnant_women }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">All
-                        women who consented when pregnant – <span style="color: red">Currently ON- study</span></p>
-
+                <div class="text-info text-center mt-2">
+                    <h1>{{ total_currently_pregnant_women }}</h1>
                 </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">Currently
+                    Pregnant Women On-Study</p>
             </div>
         </div>
-    </div>
-    <div class="row">
-
-        <div class="row w-100 jumbotron">
-            <div class="col-md-3">
-                <div class="card border-info mx-sm-1 p-3">
-                    <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
-                    <div class="text-info text-center mt-3">
-                        <h7>Currently Pregnant</h7>
-                    </div>
-                    <div class="text-info text-center mt-2"><h1>{{ total_currently_pregnant_women }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">Currently Pregnant Women On-Study</p>
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-success mx-sm-1 p-3">
-                    <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
-                    </div>
-                    <div class="text-success text-center mt-3">
-                        <h7>Maternal Deliveries</h7>
-                    </div>
-                    <div class="text-success text-center mt-2"><h1>{{ total_maternal_delivery }}</h1></div>
-                    <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
-                        Newly recruited (not from previous BHP studies) women enrolled in pregnancy who gave birth who are currently On-Study
-                    </p>
+                <div class="text-success text-center mt-3">
+                    <h7>Maternal Deliveries</h7>
                 </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_maternal_delivery }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
+                    Newly recruited (not from previous BHP studies) women enrolled in pregnancy who gave birth who are
+                    currently On-Study
+                </p>
             </div>
         </div>
-    </div>
-    <div class="row">
 
-        <aside class="col-sm-4">
-            <div class="card">
-                <article class="card-group-item">
-                    <header class="card-header"><h6 class="title">Other stats </h6></header>
-                    <div class="filter-content">
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item">Verified consent <span
-                                    class="float-right badge badge-light round"></span>0</a>
-                            <a href="#" class="list-group-item">Unverified consent <span
-                                    class="float-right badge badge-light round"></span>0</a>
-                            <a href="#" class="list-group-item">Expecting mothers <span
-                                    class="float-right badge badge-light round"></span>0</a>
-                            <a href="#" class="list-group-item">Delivered mothers <span
-                                    class="float-right badge badge-light round"></span>0</a>
-                        </div>  <!-- list-group .// -->
-                    </div>
-                </article> <!-- card-group-item.// -->
-            </div> <!-- card.// -->
-        </aside> <!-- col.// -->
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Total Maternal Death Count</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_caregivers_deaths }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
+                    Total maternal death reports
+                </p>
+            </div>
+        </div>
 
-
-        <aside class="col-sm-4">
-            <div class="card">
-                <article class="card-group-item">
-                    <header class="card-header"><h6 class="title">Links </h6></header>
-                    <div class="filter-content">
-                        <div class="list-group list-group-flush">
-                            <a href="{% url data_manager_listboard_url %}" class="list-group-item">Data Action
-                                items </a>
-                            <a href="{% url odk_listboard_url %}" class="list-group-item">ODK Copies: Consents & Omang</a>
-                            <a href="{% url 'flourish_calendar:calendar' %}" class="list-group-item">EDC Calendar</a>
-                            <a href="{% url senaite_result_listboard_url %}" class="list-group-item">EDC Senaite Interface</a>
-                            <a href="#" class="list-group-item">Data Export</a>
-                        </div>  <!-- list-group .// -->
-                    </div>
-                </article> <!-- card-group-item.// -->
-            </div> <!-- card.// -->
-        </aside> <!-- col.// -->
-
-        <aside class="col-sm-4">
-            <div class="card">
-                <article class="card-group-item">
-                    <header class="card-header"><h6 class="title">Lab stats </h6></header>
-                    <div class="filter-content">
-                        <div class="list-group list-group-flush">
-                            <a href="#" class="list-group-item">Resulted: Flourish <span
-                                    class="float-right badge badge-light round"></span>0<span
-                                    class="float-right badge badge-light round"></span> </a>
-                            <a href="#" class="list-group-item">Pending results: Flourish <span
-                                    class="float-right badge badge-light round"></span>0<span
-                                    class="float-right badge badge-light round"></span></a>
-                            <a href="#" class="list-group-item">Stored samples: Flourish <span
-                                    class="float-right badge badge-light round"></span>0<span
-                                    class="float-right badge badge-light round"></span></a>
-                            <a href="#" class="list-group-item">Shipped samples: Flourish <span
-                                    class="float-right badge badge-light round"></span>0<span
-                                    class="float-right badge badge-light round"></span></a>
-                        </div>  <!-- list-group .// -->
-                    </div>
-                </article> <!-- card-group-item.// -->
-            </div> <!-- card.// -->
-        </aside> <!-- col.// -->
-    </div>
-
-    <div class="row">
-
-        <aside class="col-sm-4">
-            <div class="card">
-                <article class="card-group-item">
-                    <header class="card-header"><h6 class="title">Flourish Substudies </h6></header>
-                    <div class="filter-content">
-                        <div class="list-group list-group-flush">
-                            <a href="{%url 'flourish_facet:home_url' %}" class="list-group-item">FACET <span
-                                    class="float-right badge badge-light round"></span></a>
-                        </div> 
-                    </div>
-                </article> <!-- card-group-item.// -->
-            </div> <!-- card.// -->
-        </aside> <!-- col.// -->
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Total Child Death Count</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_child_deaths }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
+                    Total child death reports
+                </p>
+            </div>
+        </div>
 
     </div>
+</div>
 
+<div class="row">
 
-    <div class="container bg-3 text-center">
-        <h3 class="text text-muted">Pre Flourish</h3>
-        <h3>
-            <a href="/pre_flourish/" class="btn btn-default btn-lg"><i class="fa fa-user-circle-o fa-lg"></i>
-                Subject</a>
-        </h3>
+    <div class="row w-100 jumbotron">
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Prior Caregiver Offstudy</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_prev_caregivers_offstudy }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
+                    Prior BHP Caregiver Study who are offstudy
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Prior Child Offstudy</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_prev_child_offstudy }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize">
+                    Prior BHP Child Study who are offstudy
+                </p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-info mx-sm-1 p-3">
+                <div class="card border-info shadow text-info p-3 my-card"><span aria-hidden="true"></span></div>
+                <div class="text-info text-center mt-3">
+                    <h7>Prior BHP Caregiver Death Count </h7>
+                </div>
+                <div class="text-info text-center mt-2">
+                    <h1>{{ total_prev_caregivers_deaths }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
+                    Used Maternal Visit</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-success mx-sm-1 p-3">
+                <div class="card border-success shadow text-success p-3 my-card"><span aria-hidden="true"></span>
+                </div>
+                <div class="text-success text-center mt-3">
+                    <h7>Prior BHP Child Death Count</h7>
+                </div>
+                <div class="text-success text-center mt-2">
+                    <h1>{{ total_prev_child_deaths }}</h1>
+                </div>
+                <p style="font-size: 14px; font-weight: bold; text-align: center; text-transform: capitalize;">
+                    Used Child Visit</p>
+
+            </div>
+        </div>
+
     </div>
+</div>
+<div class="row">
+
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Other stats </h6>
+                </header>
+                <div class="filter-content">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item">Verified consent <span
+                                class="float-right badge badge-light round"></span>0</a>
+                        <a href="#" class="list-group-item">Unverified consent <span
+                                class="float-right badge badge-light round"></span>0</a>
+                        <a href="#" class="list-group-item">Expecting mothers <span
+                                class="float-right badge badge-light round"></span>0</a>
+                        <a href="#" class="list-group-item">Delivered mothers <span
+                                class="float-right badge badge-light round"></span>0</a>
+                    </div> <!-- list-group .// -->
+                </div>
+            </article> <!-- card-group-item.// -->
+        </div> <!-- card.// -->
+    </aside> <!-- col.// -->
+
+
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Links </h6>
+                </header>
+                <div class="filter-content">
+                    <div class="list-group list-group-flush">
+                        <a href="{% url data_manager_listboard_url %}" class="list-group-item">Data Action
+                            items </a>
+                        <a href="{% url odk_listboard_url %}" class="list-group-item">ODK Copies: Consents & Omang</a>
+                        <a href="{% url 'flourish_calendar:calendar' %}" class="list-group-item">EDC Calendar</a>
+                        <a href="{% url senaite_result_listboard_url %}" class="list-group-item">EDC Senaite
+                            Interface</a>
+                        <a href="#" class="list-group-item">Data Export</a>
+                    </div> <!-- list-group .// -->
+                </div>
+            </article> <!-- card-group-item.// -->
+        </div> <!-- card.// -->
+    </aside> <!-- col.// -->
+
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Lab stats </h6>
+                </header>
+                <div class="filter-content">
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item">Resulted: Flourish <span
+                                class="float-right badge badge-light round"></span>0<span
+                                class="float-right badge badge-light round"></span> </a>
+                        <a href="#" class="list-group-item">Pending results: Flourish <span
+                                class="float-right badge badge-light round"></span>0<span
+                                class="float-right badge badge-light round"></span></a>
+                        <a href="#" class="list-group-item">Stored samples: Flourish <span
+                                class="float-right badge badge-light round"></span>0<span
+                                class="float-right badge badge-light round"></span></a>
+                        <a href="#" class="list-group-item">Shipped samples: Flourish <span
+                                class="float-right badge badge-light round"></span>0<span
+                                class="float-right badge badge-light round"></span></a>
+                    </div> <!-- list-group .// -->
+                </div>
+            </article> <!-- card-group-item.// -->
+        </div> <!-- card.// -->
+    </aside> <!-- col.// -->
+</div>
+
+<div class="row">
+
+    <aside class="col-sm-4">
+        <div class="card">
+            <article class="card-group-item">
+                <header class="card-header">
+                    <h6 class="title">Flourish Substudies </h6>
+                </header>
+                <div class="filter-content">
+                    <div class="list-group list-group-flush">
+                        <a href="{%url 'flourish_facet:home_url' %}" class="list-group-item">FACET <span
+                                class="float-right badge badge-light round"></span></a>
+                    </div>
+                </div>
+            </article> <!-- card-group-item.// -->
+        </div> <!-- card.// -->
+    </aside> <!-- col.// -->
+
+</div>
+
+
+<div class="container bg-3 text-center">
+    <h3 class="text text-muted">Pre Flourish</h3>
+    <h3>
+        <a href="/pre_flourish/" class="btn btn-default btn-lg"><i class="fa fa-user-circle-o fa-lg"></i>
+            Subject</a>
+    </h3>
+</div>
 {% endblock main %}
 {% block extra-scripts-bottom %}
-    <script>
+<script>
 
-    </script>
+</script>
 {% endblock %}
