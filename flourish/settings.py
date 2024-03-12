@@ -365,6 +365,10 @@ DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
 
+REDCAP_API_URL = config['redcap_server'].get('redcap_url')
+
+REDCAP_API_TOKEN = config['redcap_server'].get('redcap_token')
+
 
 CACHEOPS = {
     'flourish_caregiver.*': {'ops': 'all', 'timeout': 60*60*24},
