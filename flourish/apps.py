@@ -66,6 +66,8 @@ class EdcDataManagerAppConfig(BaseEdcDataManagerAppConfig):
             ['adiphoko@bhp.org.bw', 'ckgathi@bhp.org.bw', 'imosweu@bhp.org.bw',
              'mchawawa@bhp.org.bw']]}
     child_subject = True
+    subject_dashboard_url = 'subject_dashboard_url'
+    infant_dashboard_url = 'infant_subject_dashboard_url'
 
 
 class EdcProtocolAppConfig(BaseEdcProtocolAppConfig):
@@ -189,7 +191,8 @@ class EdcSenaiteInterfaceAppConfig(BaseEdcSenaiteInterfaceAppConfig):
                          'fbc': 'Whole Blood EDTA',
                          'child_pl_store': 'Whole Blood EDTA',
                          'lithium_heparin': 'Whole Blood Lithium Heparin',
-                         'serum_storage': 'Whole Blood SST'}
+                         'serum_storage': 'Whole Blood SST',
+                         'breast_milk': 'Breast Milk'}
     container_type_match = {'viral_load': 'EDTA tube',
                             'cd4': 'EDTA tube',
                             'hematology': 'EDTA tube',
@@ -205,7 +208,8 @@ class EdcSenaiteInterfaceAppConfig(BaseEdcSenaiteInterfaceAppConfig):
                             'fbc': 'EDTA tube',
                             'child_pl_store': 'EDTA tube',
                             'lithium_heparin': 'Lithium Heparin tube',
-                            'serum_storage': 'SST Tube'}
+                            'serum_storage': 'SST Tube',
+                            'breast_milk': 'Breast Milk Cup'}
     template_match = {'viral_load': 'HIV RNA PCR',
                       'cd4': 'CD4/CD8',
                       'hematology': 'CBC',
@@ -221,4 +225,5 @@ class EdcSenaiteInterfaceAppConfig(BaseEdcSenaiteInterfaceAppConfig):
                       'fbc': 'CBC',
                       'child_pl_store': 'Storage plasma',
                       'lithium_heparin': 'QuantiFERON-TB Gold Plus',
-                      'serum_storage': 'Storage serum'}
+                      'serum_storage': 'Storage serum',
+                      'breast_milk': 'Breast Milk'}
