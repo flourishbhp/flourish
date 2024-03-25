@@ -299,7 +299,7 @@ DASHBOARD_URL_NAMES = {
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
     'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
     # Cohort switch url
-    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url'
+    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
