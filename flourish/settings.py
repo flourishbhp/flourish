@@ -210,9 +210,9 @@ EMAIL_HOST_PASSWORD = config['email_conf'].get('email_host_pwd')
 
 # Celery configurations
 CELERY_TIMEZONE = 'Africa/Gaborone'
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_INCLUDE = ['flourish_child.utils', ]
-# CELERY_RESULT_BACKEND = 'file:///etc/celery/results'
+CELERY_BROKER_URL = 'redis://localhost'
+CELERY_RESULT_BACKEND = 'redis://localhost'
+CELERY_INCLUDE = ['flourish_child.utils', 'flourish.tasks']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -293,10 +293,13 @@ DASHBOARD_URL_NAMES = {
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
     'facet_flourish_consent_listboard_url': 'flourish_facet:facet_flourish_consent_listboard_url',
     'group_interview_listboard_url': 'flourish_facet:group_interview_listboard_url',
+    'facet_export_listboard_url':'flourish_facet:facet_export_listboard_url',
     # Senaite Interface URLs
     # Use caregiver result listboard as default/entry listboard.
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
-    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url'
+    'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
+    # Cohort switch url
+    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -335,8 +338,11 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html',
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     'group_interview_listboard_template': 'flourish_facet/interview/listboard.html',
+    'facet_export_listboard_template':'flourish_facet/facet_export_listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
+    # Cohort switch template
+    'cohort_switch_listboard_template': 'flourish_follow/cohort_switch_listboard.html'
 }
 
 # Static files (CSS, JavaScript, Images)
@@ -358,6 +364,10 @@ SHORT_DATETIME_FORMAT = 'Y-m-d h:m'
 DATE_FORMAT = 'Y-m-d'
 
 CACHEOPS_REDIS = "redis://localhost:6379/1"
+
+REDCAP_API_URL = config['redcap_server'].get('redcap_url')
+
+REDCAP_API_TOKEN = config['redcap_server'].get('redcap_token')
 
 
 CACHEOPS = {
