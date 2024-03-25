@@ -210,9 +210,9 @@ EMAIL_HOST_PASSWORD = config['email_conf'].get('email_host_pwd')
 
 # Celery configurations
 CELERY_TIMEZONE = 'Africa/Gaborone'
-CELERY_BROKER_URL = 'amqp://localhost'
-CELERY_INCLUDE = ['flourish_child.utils', ]
-# CELERY_RESULT_BACKEND = 'file:///etc/celery/results'
+CELERY_BROKER_URL = 'redis://localhost'
+CELERY_RESULT_BACKEND = 'redis://localhost'
+CELERY_INCLUDE = ['flourish_child.utils', 'flourish.tasks']
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -299,7 +299,7 @@ DASHBOARD_URL_NAMES = {
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
     'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
     # Cohort switch url
-    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url'
+    'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
