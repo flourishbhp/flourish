@@ -300,6 +300,8 @@ DASHBOARD_URL_NAMES = {
     'child_result_listboard_url': 'flourish_dashboard:child_result_listboard_url',
     # Cohort switch url
     'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
+    # flourish_reports
+    'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -342,7 +344,9 @@ DASHBOARD_BASE_TEMPLATES = {
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
     # Cohort switch template
-    'cohort_switch_listboard_template': 'flourish_follow/cohort_switch_listboard.html'
+    'cohort_switch_listboard_template': 'flourish_follow/cohort_switch_listboard.html',
+    # flourish_reports
+    'missing_crf_listboard_template': 'flourish_reports/missing_crfs/missing_crf_listview.html'
 }
 
 # Static files (CSS, JavaScript, Images)
