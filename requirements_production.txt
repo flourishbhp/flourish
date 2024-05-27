@@ -39,12 +39,12 @@ git+https://github.com/botswana-harvard/edc-visit-schedule.git@0.2.14#egg=edc-vi
 git+https://github.com/botswana-harvard/edc-visit-tracking.git@0.2.13#egg=edc-visit-tracking
 git+https://github.com/flourishbhp/flourish-child.git@0.4.27#egg=flourish-child
 git+https://github.com/flourishbhp/flourish-child-validations.git@0.2.5#egg=flourish-child-validations
-git+https://github.com/flourishbhp/flourish-caregiver.git@0.4.47#egg=flourish-caregiver
+git+https://github.com/flourishbhp/flourish-caregiver.git@0.4.48#egg=flourish-caregiver
 git+https://github.com/flourishbhp/flourish-dashboard.git@0.2.9#egg=flourish-dashboard
 git+https://github.com/flourishbhp/flourish-visit-schedule.git@0.2.4#egg=flourish-visit-schedule
-git+https://github.com/flourishbhp/flourish-facet.git@0.1.13#egg=flourish-facet
+git+https://github.com/flourishbhp/flourish-facet.git@0.1.14#egg=flourish-facet
 git+https://github.com/flourishbhp/flourish-follow.git@0.1.32#egg=flourish-follow
-git+https://github.com/flourishbhp/flourish-reports.git@0.1.23#egg=flourish-reports
+git+https://github.com/flourishbhp/flourish-reports.git@0.1.24#egg=flourish-reports
 git+https://github.com/flourishbhp/flourish-form-validations.git@0.2.6#egg=flourish-form-validations
 git+https://github.com/flourishbhp/flourish-prn.git@0.1.22#egg=flourish-prn
 git+https://github.com/flourishbhp/flourish-export.git@0.1.8#egg=flourish-export
@@ -53,7 +53,7 @@ git+https://github.com/flourishbhp/flourish-metadata-rules@0.2.4#egg=flourish-me
 git+https://github.com/flourishbhp/flourish-labs@0.1.8#egg=flourish-labs
 git+https://github.com/flourishbhp/flourish-calendar@0.2.2#egg=flourish-calendar
 git+https://github.com/flourishbhp/pre-flourish.git@0.1.38#egg=pre-flourish
-git+https://github.com/flourishbhp/pre-flourish-follow.git@0.1.8#egg=pre-flourish-follow
+git+https://github.com/flourishbhp/pre-flourish-follow.git@0.1.9#egg=pre-flourish-follow
 pandas
 jupyter
 django-pandas
