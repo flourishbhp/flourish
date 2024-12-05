@@ -214,6 +214,25 @@ CELERY_BROKER_URL = 'redis://localhost'
 CELERY_RESULT_BACKEND = 'redis://localhost'
 CELERY_INCLUDE = ['flourish_child.utils', 'flourish.tasks']
 
+RQ_QUEUES = {
+    'default': {
+        'URL': 'redis://localhost:6379/0',
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'exports': {
+        'URL': 'redis://localhost:6379/0',
+        'DEFAULT_TIMEOUT': 7200,  # Adjust timeout for long-running exports
+    },
+    'full_exports': {
+        'URL': 'redis://localhost:6379/0',
+        'DEFAULT_TIMEOUT': 7200,  # Adjust timeout for long-running exports
+    },
+    'facet_exports': {
+        'URL': 'redis://localhost:6379/0',
+        'DEFAULT_TIMEOUT': 7200,  # Adjust timeout for long-running exports
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
