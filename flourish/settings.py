@@ -120,6 +120,7 @@ INSTALLED_APPS = [
     'flourish_facet.apps.AppConfig',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_rq'
     'cacheops',
 ]
 
