@@ -120,7 +120,7 @@ INSTALLED_APPS = [
     'flourish_facet.apps.AppConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'django_rq'
+    'django_rq',
     'cacheops',
 ]
 
@@ -313,7 +313,7 @@ DASHBOARD_URL_NAMES = {
     'facet_child_dashboard_url':  'flourish_facet:facet_child_dashboard_url',
     'facet_flourish_consent_listboard_url': 'flourish_facet:facet_flourish_consent_listboard_url',
     'group_interview_listboard_url': 'flourish_facet:group_interview_listboard_url',
-    'facet_export_listboard_url':'flourish_facet:facet_export_listboard_url',
+    'facet_export_listboard_url': 'flourish_facet:facet_export_listboard_url',
     # Senaite Interface URLs
     # Use caregiver result listboard as default/entry listboard.
     'senaite_result_listboard_url': 'flourish_dashboard:caregiver_result_listboard_url',
@@ -360,7 +360,7 @@ DASHBOARD_BASE_TEMPLATES = {
     'facet_flourish_consent_template': 'flourish_facet/mother/flourish_consent_listboard.html',
     'facet_child_listboard_template': 'flourish_facet/child/flourish_facet_listboard.html',
     'group_interview_listboard_template': 'flourish_facet/interview/listboard.html',
-    'facet_export_listboard_template':'flourish_facet/facet_export_listboard.html',
+    'facet_export_listboard_template': 'flourish_facet/facet_export_listboard.html',
     # Override senaite result template
     'senaite_result_listboard_template': 'flourish_dashboard/result_listboard.html',
     # Cohort switch template
@@ -393,6 +393,32 @@ REDCAP_API_URL = config['redcap_server'].get('redcap_url')
 
 REDCAP_API_TOKEN = config['redcap_server'].get('redcap_token')
 
+# REDIS-RQ logging
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs', 'rq_worker.log'),
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'rq.worker': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 CACHEOPS = {
     'flourish_caregiver.*': {'ops': 'all', 'timeout': 60*60*24},
