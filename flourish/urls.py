@@ -106,6 +106,7 @@ urlpatterns = [
     path('calendar/', include('flourish_calendar.urls')),
     path('flourish_facet/', include('flourish_facet.urls')),
     path("admin/", flourish_calendar_admin.urls),
+    path('django-rq/', include('django_rq.urls')),
 
 ]
 

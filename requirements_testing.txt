@@ -1,8 +1,8 @@
 git+https://github.com/botswana-harvard/django-crypto-fields.git@0.1.14#egg=django-crypto-fields
 git+https://github.com/botswana-harvard/django-revision.git@0.1.14#egg=django-revision
 git+https://github.com/botswana-harvard/edc-action-item.git@testing#egg=edc_action_item
-git+https://github.com/botswana-harvard/edc-appointment.git@testing#egg=edc_appointment 
-git+https://github.com/botswana-harvard/edc-base.git@testing#egg=edc_base
+git+https://github.com/botswana-harvard/edc-appointment.git@develop#egg=edc_appointment 
+git+https://github.com/botswana-harvard/edc-base.git@develop#egg=edc_base
 git+https://github.com/botswana-harvard/edc-call-manager.git@testing#egg=edc-call-manager
 git+https://github.com/botswana-harvard/edc-calendar.git@testing#egg=edc-calendar
 git+https://github.com/botswana-harvard/edc-constants.git@testing#egg=edc_constants
@@ -57,3 +57,5 @@ git+https://github.com/flourishbhp/flourish-facet.git@testing#egg=flourish_facet
 pypdfium2==3.8.0
 django_tables2
 django-crispy-forms==1.14.0
+django-rq==2.6.0
+rq==1.10.0
