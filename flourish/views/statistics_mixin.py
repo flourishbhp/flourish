@@ -82,6 +82,16 @@ class StatisticsMixin(EdcBaseViewMixin):
         return django_apps.get_model(self.child_dataset_model)
 
     @property
+    def caregiver_offstudies(self):
+        return self.caregiver_offstudy_cls.objects.values_list(
+            'subject_identifier', flat=True)
+
+    @property
+    def child_offstudies(self):
+        return self.child_offstudy_cls.objects.values_list(
+            'subject_identifier', flat=True)
+
+    @property
     def prior_bhp_maternal_subject_identifiers(self):
         subject_identifiers = set(
             self.subject_consent_cls.objects.filter(
@@ -102,96 +112,93 @@ class StatisticsMixin(EdcBaseViewMixin):
 
     @property
     def total_flourish_consents(self):
-        """Returns flourish consents.
         """
-        return len(set(self.subject_consent_cls.objects.values_list('subject_identifier')))
+            Returns all caregiver consents (on and off study).
+        """
+        return len(set(self.subject_consent_cls.objects.values_list(
+            'subject_identifier', flat=True)))
 
     @property
     def total_child_assents(self):
         child_assent_cls = django_apps.get_model('flourish_child.childassent')
-        return len(set(child_assent_cls.objects.values_list('subject_identifier')))
+        return len(set(child_assent_cls.objects.values_list(
+            'subject_identifier', flat=True)))
 
     @property
     def total_child_consents(self):
+        """
+            Returns all caregiver child consents (on and off study).
+        """
         child_consent_cls = django_apps.get_model(
             'flourish_caregiver.caregiverchildconsent')
-        return len(set(child_consent_cls.objects.values_list('subject_identifier')))
+        return len(set(child_consent_cls.objects.values_list(
+            'subject_identifier', flat=True)))
 
     @property
     def total_continued_consents(self):
         continued_consent_cls = django_apps.get_model(
             'flourish_child.childcontinuedconsent')
-        return len(set(continued_consent_cls.objects.values_list('subject_identifier')))
+        return len(set(continued_consent_cls.objects.values_list(
+            'subject_identifier', flat=True)))
 
     @property
     def total_caregiver_prev_study(self):
         """
-        Caregivers from previous BHP studies Currently on-Study
+            Caregivers from previous BHP studies Currently on-Study
         """
-        metadataset_screening_identifier = self.maternal_dataset_cls.objects.values_list(
-            'screening_identifier', flat=True).distinct()
+        dataset_sidx = self.maternal_dataset_cls.objects.values_list(
+            'screening_identifier', flat=True)
 
-        caregiver_offstudy_subject_identifier = self.caregiver_offstudy_cls.objects.values_list(
-            'subject_identifier', flat=True)
-
-        subject_consents = set(self.subject_consent_cls.objects.filter(
-            Q(screening_identifier__in=metadataset_screening_identifier) & ~Q(
-                subject_identifier__in=caregiver_offstudy_subject_identifier)).values_list(
-            'subject_identifier', flat=True))
+        subject_consents = set(self.subject_consent_cls.objects.exclude(
+            subject_identifier__in=self.caregiver_offstudies).filter(
+                screening_identifier__in=dataset_sidx).values_list(
+                    'subject_identifier', flat=True))
         return len(subject_consents)
 
     @property
     def total_child_prev(self):
         """
-        Children from previous BHP studies Currently on-Study
+            Children from previous BHP studies Currently on-Study
         """
-        child_offstudy_subject_identifiers = self.child_offstudy_cls.objects.values_list(
-            'subject_identifier', flat=True).distinct()
+        total_children = set(self.caregiver_child_consent_cls.objects.exclude(
+            subject_identifier__in=self.child_offstudies).filter(
+                study_child_identifier__isnull=False).values_list(
+                    'subject_identifier', flat=True))
 
-        total_children = self.caregiver_child_consent_cls.objects.filter(
-            Q(study_child_identifier__isnull=False) & ~Q(
-                subject_identifier__in=child_offstudy_subject_identifiers)).count()
-
-        return total_children
+        return len(total_children)
 
     @property
     def total_all_preg_women(self):
         """
-        All women who consented when pregnant (on and off study)
+            All women who consented when pregnant (on and off study)
         """
 
         return len(set(self.antenatal_enrollment_cls.objects.values_list(
-            'subject_identifier')))
+            'subject_identifier', flat=True)))
 
     @property
     def total_consented_pregnant_women(self):
         """
-        All women who consented when pregnant – Currently ON- study
+            All women who consented when pregnant – Currently ON- study
         """
 
-        maternal_offstudy_subject_identifiers = self.caregiver_offstudy_cls.objects.values_list(
-            'subject_identifier', flat=True).distinct()
-
         all_consented_women = set(self.antenatal_enrollment_cls.objects.exclude(
-            subject_identifier__in=maternal_offstudy_subject_identifiers).values_list(
+            subject_identifier__in=self.caregiver_offstudies).values_list(
                 'subject_identifier', flat=True))
         return len(all_consented_women)
 
     @property
     def total_currently_pregnant_women(self):
         """
-        Currently Pregnant Women On-Study
+            Currently Pregnant Women On-Study
         """
 
-        maternal_offstudy_subject_identifiers = self.caregiver_offstudy_cls.objects.values_list(
-            'subject_identifier', flat=True).distinct()
-
-        maternal_delivery_subject_identifiers = self.maternal_delivery_cls.objects.values_list(
+        deliveries = self.maternal_delivery_cls.objects.values_list(
             'subject_identifier', flat=True).distinct()
 
         currently_preg = set(self.antenatal_enrollment_cls.objects.exclude(
-            Q(subject_identifier__in=maternal_offstudy_subject_identifiers) |
-            Q(subject_identifier__in=maternal_delivery_subject_identifiers)).values_list(
+            Q(subject_identifier__in=self.caregiver_offstudies) |
+            Q(subject_identifier__in=deliveries)).values_list(
                 'subject_identifier', flat=True))
 
         return len(currently_preg)
@@ -199,11 +206,12 @@ class StatisticsMixin(EdcBaseViewMixin):
     @property
     def total_maternal_delivery(self):
         """
-        Newly recruited (not from previous BHP studies) women enrolled in pregnancy who
-         gave birth who are currently On-Study
+            Newly recruited (not from previous BHP studies) women enrolled in
+            pregnancy who gave birth who are currently On-Study
         """
 
-        return self.maternal_delivery_cls.objects.count()
+        return self.maternal_delivery_cls.objects.exclude(
+            subject_identifier__in=self.caregiver_offstudies).count()
 
     @property
     def total_prev_caregivers_offstudy(self):
