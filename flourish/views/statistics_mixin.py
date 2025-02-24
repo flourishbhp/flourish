@@ -33,6 +33,10 @@ class StatisticsMixin(EdcBaseViewMixin):
 
     caregiver_death_report_model = 'flourish_prn.caregiverdeathreport'
 
+    anc_schedule_model = 'flourish_caregiver.onschedulecohortaantenatal'
+
+    ssh_model = 'edc_visit_schedule.subjectschedulehistory'
+
     @property
     def child_death_report_cls(self):
         return django_apps.get_model(self.child_death_report_model)
@@ -90,6 +94,14 @@ class StatisticsMixin(EdcBaseViewMixin):
     def child_offstudies(self):
         return self.child_offstudy_cls.objects.values_list(
             'subject_identifier', flat=True)
+
+    @property
+    def anc_schedule_model_cls(self):
+        return django_apps.get_model(self.anc_schedule_model)
+
+    @property
+    def ssh_model_cls(self):
+        return django_apps.get_model(self.ssh_model)
 
     @property
     def prior_bhp_maternal_subject_identifiers(self):
@@ -192,16 +204,27 @@ class StatisticsMixin(EdcBaseViewMixin):
         """
             Currently Pregnant Women On-Study
         """
+        currently_preg = 0
+        preg_enrol = self.antenatal_enrollment_cls.objects.exclude(
+            subject_identifier__in=self.caregiver_offstudies).values_list(
+                'child_subject_identifier', flat=True)
 
-        deliveries = self.maternal_delivery_cls.objects.values_list(
-            'subject_identifier', flat=True).distinct()
+        for child_idx in preg_enrol:
+            delv = self.maternal_delivery_cls.objects.filter(
+                child_subject_identifier=child_idx).exists()
+            if delv:
+                continue
+            onschedule = self.anc_schedule_model_cls.objects.filter(
+                child_subject_identifier=child_idx).values(
+                    'subject_identifier', 'schedule_name').first()
+            is_onschedule = self.ssh_model_cls.objects.filter(
+                subject_identifier=onschedule.get('subject_identifier', None),
+                schedule_name=onschedule.get('schedule_name', None),
+                schedule_status='onschedule').exists()
+            if is_onschedule:
+                currently_preg += 1
 
-        currently_preg = set(self.antenatal_enrollment_cls.objects.exclude(
-            Q(subject_identifier__in=self.caregiver_offstudies) |
-            Q(subject_identifier__in=deliveries)).values_list(
-                'subject_identifier', flat=True))
-
-        return len(currently_preg)
+        return currently_preg
 
     @property
     def total_maternal_delivery(self):
