@@ -152,7 +152,8 @@ class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
         'flourish_child.childvisit': 'reason',
         'flourish_facet.facetvisit': 'reason', }
     create_on_reasons = [SCHEDULED, UNSCHEDULED, COMPLETED_PROTOCOL_VISIT]
-    delete_on_reasons = [LOST_VISIT, MISSED_VISIT, FAILED_ELIGIBILITY]
+    delete_on_reasons = [LOST_VISIT, MISSED_VISIT, FAILED_ELIGIBILITY,
+                         'edc_system_glitch']
 
 
 class EdcOdkAppConfig(BaseEdcOdkAppConfig):
