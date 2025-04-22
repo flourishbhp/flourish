@@ -322,6 +322,9 @@ DASHBOARD_URL_NAMES = {
     'cohort_switch_listboard_url': 'flourish_follow:cohort_switch_listboard_url',
     # flourish_reports
     'missing_crf_report_url': 'flourish_reports:missing_crf_report_url',
+    'missing_req_report_url': 'flourish_reports:missing_req_report_url',
+    'child_missing_crf_report_url': 'flourish_reports:child_missing_crf_report_url',
+    'child_missing_req_report_url': 'flourish_reports:child_missing_req_report_url',
 }
 
 DASHBOARD_BASE_TEMPLATES = {
@@ -366,7 +369,8 @@ DASHBOARD_BASE_TEMPLATES = {
     # Cohort switch template
     'cohort_switch_listboard_template': 'flourish_follow/cohort_switch_listboard.html',
     # flourish_reports
-    'missing_crf_listboard_template': 'flourish_reports/missing_crfs/missing_crf_listview.html'
+    'missing_crf_listboard_template': 'flourish_reports/missing_crfs/missing_crf_listview.html',
+    'missing_req_listboard_template': 'flourish_reports/missing_crfs/missing_req_listview.html'
 }
 
 # Static files (CSS, JavaScript, Images)
