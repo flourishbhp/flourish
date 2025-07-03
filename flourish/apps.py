@@ -78,7 +78,7 @@ class EdcProtocolAppConfig(BaseEdcProtocolAppConfig):
     study_open_datetime = datetime(
         2020, 7, 1, 0, 0, 0, tzinfo=gettz('UTC'))
     study_close_datetime = datetime(
-        2025, 6, 30, 23, 59, 59, tzinfo=gettz('UTC'))
+        2025, 7, 7, 23, 59, 59, tzinfo=gettz('UTC'))
 
 
 class EdcTimepointAppConfig(BaseEdcTimepointAppConfig):
@@ -159,6 +159,7 @@ class EdcMetadataAppConfig(BaseEdcMetadataAppConfig):
 class EdcOdkAppConfig(BaseEdcOdkAppConfig):
     adult_child_study = False
     adult_consent_model = 'flourish_caregiver.subjectconsent'
+    child_consent_model = 'flourish_child.childdummysubjectconsent'
     child_assent_model = 'flourish_child.childassent'
     clinician_notes_form_ids = {
         'flourish_child': 'child_cliniciannotes_v1.0',
